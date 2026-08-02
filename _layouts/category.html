@@ -1,0 +1,25 @@
+---
+layout: default
+---
+{%- assign posts = site.posts | where: "category_id", page.category_id | sort: "priority" %}
+<div id="main">
+	<h1>Статті</h1>
+	<div class="catalog">
+		<ul>
+			<li><a href="/articles/{{ page.category_id }}/">{{ page.category_name }}</a></li>
+			<li class="second">
+				<ul>
+				{%- for post in posts %}
+					<li><a href="{{ post.url }}">{{ post.title }}</a>
+						<div class="text">
+							{{ post.description }}...
+						</div>
+					</li>
+				{%- endfor %}
+				</ul>
+			</li>
+		</ul>
+	</div>
+
+	<h2><a href="/articles/">Перейти в розділ "Статті"</a></h2>
+</div>

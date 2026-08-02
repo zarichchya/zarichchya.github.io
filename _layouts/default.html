@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang }}">
+{%- include head.html %}
+<body>
+
+{%- include topmenu.html %}
+
+<div id="wrapper">
+<h1 id="h1">
+<a title="{{ site.title }}" class="tooltip" href="/">{{ site.title }}</a>
+</h1>
+<div id="page">
+<div id="content">
+
+	{%- include breadcrumbs.html %}
+	{{ content }}
+	{%- include sidebar.html %}
+
+<div class="clear"></div>
+</div>
+</div>
+</div>
+
+{%- include footer.html %}
+
+</body>
+</html>

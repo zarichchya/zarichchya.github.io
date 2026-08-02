@@ -1,0 +1,24 @@
+---
+layout: default
+---
+{%- include facebook-sdk.html %}
+<div id="main">
+	<h1>{{ page.title }}</h1>
+	<div class="rozdil">
+		<div class="item">
+			<div class="text">
+{{ content }}
+			</div>
+		</div>
+		<h1>Куди далі?</h1>
+
+		<div id="properties">
+		<a href="/articles/{{ page.category_id }}/">Перейти в розділ "{{ page.category_name }}"</a><br />
+		<a href="/articles/">Перейти в розділ "Статті"</a><br />
+		</div>
+
+		<div class="clear"></div>
+		<div class="fb-comments" data-href="{{ page.url | absolute_url }}" data-width="auto" data-numposts="5"></div>
+		<div id="mc-container"></div>
+	</div>
+</div>

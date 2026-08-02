@@ -1,0 +1,28 @@
+# Runs the site without installing Ruby locally.
+#
+#   docker compose run --rm build        # one-off build into _site/
+#   docker compose up serve              # live reload on http://localhost:4000
+#
+# The `gems` volume caches installed gems between runs.
+
+services:
+  build:
+    image: jekyll/jekyll:4
+    working_dir: /srv/jekyll
+    volumes:
+      - .:/srv/jekyll
+      - gems:/usr/local/bundle
+    command: sh -c "bundle install && bundle exec jekyll build --trace"
+
+  serve:
+    image: jekyll/jekyll:4
+    working_dir: /srv/jekyll
+    ports:
+      - "4000:4000"
+    volumes:
+      - .:/srv/jekyll
+      - gems:/usr/local/bundle
+    command: sh -c "bundle install && bundle exec jekyll serve --host 0.0.0.0 --livereload --force_polling"
+
+volumes:
+  gems:

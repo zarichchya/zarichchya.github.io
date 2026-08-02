@@ -1,0 +1,40 @@
+---
+layout: default
+---
+{%- comment -%}
+Ported from static/UPA-gallery.html.
+
+Album pages must declare the lightbox assets in their own front matter:
+
+  styles:  [/css/shadowbox.css]
+  scripts: [/js/shadowbox.js]
+
+`_includes/head.html` reads `page.styles`/`page.scripts`, and Liquid resolves
+`page` against the document, not the layout — so declaring them here would be
+silently ignored.
+{%- endcomment -%}
+{%- assign album = site.data.gallery | where: "id", page.album_id | first %}
+<script type="text/javascript">
+Shadowbox.init({
+    handleOversize: 'resize',
+    player:  'img'  ,
+    modal: false
+});
+</script>
+
+<div id="main">
+	<h1><a href="/gallery/">Фотогалерея</a> / {{ album.name }}</h1>
+
+	<div class="album">
+	{%- for photo in album.photos %}
+		<div class="row">
+
+		<div class="photo"><a rel="shadowbox;player=img" href="{{ photo.full }}"><img alt="{{ photo.descr | split: ';' | first | strip }}" class="border" src="{{ photo.thumb }}"></a></div>
+
+		<div class="descr">{{ photo.descr }}</div>
+		</div>
+
+		<div class="clear"></div>
+	{%- endfor %}
+	</div>
+</div>

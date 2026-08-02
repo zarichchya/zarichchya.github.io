@@ -1,0 +1,7 @@
+# Keep everything LF in the repo; the site is built on Linux CI.
+* text=auto eol=lf
+
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.gif binary

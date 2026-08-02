@@ -1,0 +1,58 @@
+# --- site identity (was the `settings` table + layout.phtml) -----------------
+title: "Моє Заріччя над Прутом"
+separator: " :: "
+description: "Моє Заріччя над Прутом. Походження села, спогади, дослідження."
+lang: uk
+# Where the site is actually served. Used for absolute URLs in feed.xml,
+# sitemap.xml and the Facebook comment anchors. Change this (and add a CNAME
+# file next to it) if the zarichchya.org.ua domain is pointed here later.
+url: "https://zarichchya.github.io"
+baseurl: ""
+
+author:
+  name: "Михайло Клим'юк"
+  url: "https://www.facebook.com/mykhailo.klymyuk"
+
+# Footer credits, verbatim from application/layouts/scripts/layout.phtml
+since: 2009
+hosting:
+  name: "Косівський портал"
+  url: "http://kosivart.if.ua/"
+
+# --- third-party ids lifted out of the old templates -------------------------
+google_analytics: "UA-88969692-1"
+google_site_verification: "1wzYo8SbK7WrXjkmt_dyATqFHRroIiSUwKSwkLEBY9Y"
+facebook:
+  page: "https://www.facebook.com/moyezarichchya"
+  app_id: "356659138126791"
+  locale: "uk_UA"
+
+# --- build -------------------------------------------------------------------
+# Posts carry an explicit `permalink` (generated from the old article ids), so
+# every legacy /articles/<category_id>/<article_id>/ URL still resolves.
+permalink: pretty
+timezone: Europe/Kiev
+
+markdown: kramdown
+kramdown:
+  input: GFM
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+feed:
+  path: /feed.xml
+  # The whole archive is 15 articles; don't let jekyll-feed's default of 10 clip it.
+  posts_limit: 50
+
+sass:
+  style: compressed
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - docker-compose.yml
+  - vendor
+  - .bundle

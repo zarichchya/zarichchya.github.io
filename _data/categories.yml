@@ -1,0 +1,33 @@
+# Article categories, ordered by `priority`. Originally imported from the
+# `categories` table of the retired PHP app; now maintained by hand.
+# `id` keeps the legacy /articles/<id>/ routes working, so don't renumber it.
+- id: 9
+  priority: 1
+  name: "Походження села"
+  slug: pokhodzhennia-sela
+  url: /articles/9/
+- id: 7
+  priority: 2
+  name: "Дослідження краєзнавців"
+  slug: doslidzhennia-kraieznavtsiv
+  url: /articles/7/
+- id: 8
+  priority: 3
+  name: "Історія Заріччя в спогадах"
+  slug: istoriia-zarichchia-v-spohadakh
+  url: /articles/8/
+- id: 12
+  priority: 4
+  name: "Згадаймо всіх поіменно"
+  slug: zhadaimo-vsikh-poimenno
+  url: /articles/12/
+- id: 10
+  priority: 5
+  name: "Церковне життя"
+  slug: tserkovne-zhyttia
+  url: /articles/10/
+- id: 11
+  priority: 6
+  name: "Хто ми?"
+  slug: khto-my
+  url: /articles/11/

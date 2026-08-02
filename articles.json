@@ -1,0 +1,16 @@
+---
+layout: null
+permalink: /articles.json
+sitemap: false
+---
+[
+{%- for post in site.posts %}
+  {
+    "title": {{ post.title | jsonify }},
+    "descr": {{ post.description | jsonify }},
+    "url": {{ post.url | jsonify }},
+    "category": {{ post.category_name | jsonify }},
+    "category_url": {{ post.category_id | prepend: "/articles/" | append: "/" | jsonify }}
+  }{% unless forloop.last %},{% endunless %}
+{%- endfor %}
+]

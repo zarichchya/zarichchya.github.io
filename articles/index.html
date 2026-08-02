@@ -1,0 +1,29 @@
+---
+layout: default
+title: "Статті"
+permalink: /articles/
+description: "Всі статті про село Заріччя над Прутом, згруповані за розділами."
+---
+{%- comment -%}
+Ported from application/views/scripts/articles/index.phtml; the category ->
+articles grouping that Application_Model_ArticlesGeneral::getCategoriesWithArticles()
+built in PHP is done here with _data/categories.yml.
+{%- endcomment -%}
+<div id="main">
+	<h1>Статті</h1>
+	<div class="catalog">
+		<ul>
+		{%- for category in site.data.categories %}
+		{%- assign posts = site.posts | where: "category_id", category.id | sort: "priority" %}
+			<li><a href="{{ category.url }}">{{ category.name }}</a></li>
+			<li class="second">
+				<ul>
+				{%- for post in posts %}
+					<li><a href="{{ post.url }}">{{ post.title }}</a></li>
+				{%- endfor %}
+				</ul>
+			</li>
+		{%- endfor %}
+		</ul>
+	</div>
+</div>

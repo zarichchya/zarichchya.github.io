@@ -1,0 +1,60 @@
+---
+layout: default
+title: "Головна"
+permalink: /
+scripts:
+  - /js/1_p.js
+  - /js/random-article.js
+---
+{%- comment -%}
+Ported from application/views/scripts/index/index.phtml.
+The slideshow used to be built by scanning public/slider/ in PHP
+(Application_Model_Photos::FirstPageImageSlider); Jekyll enumerates the same
+directory at build time instead.
+{%- endcomment -%}
+<div id="banner">
+
+	<div id="slideshow">
+	{%- for file in site.static_files %}
+	{%- if file.path contains "/slider/" %}
+		<img src="{{ file.path }}" alt="{{ file.name }}" title="{{ file.name }}" />
+	{%- endif %}
+	{%- endfor %}
+	</div>
+</div>
+
+<div id="main">
+
+	<br/> <div class="clear"></div>
+
+	<h1>Статті</h1>
+
+	{%- comment -%}
+	Was a `ORDER BY RAND() LIMIT 1` query. On a static site the pick happens in
+	the browser, from /articles.json, so it still changes on every visit.
+	{%- endcomment -%}
+	<div id="randomArticle" data-articles="/articles.json"></div>
+
+	<div class="clear"></div>
+
+	<div style="margin: 10px 10px 10px 0px;">
+
+		<div style="width:729px; color: red; margin:0px auto; text-align:center">
+			<div class="fb-page"
+				 data-href="{{ site.facebook.page }}"
+				 data-small-header="true"
+				 data-width="500"
+				 data-adapt-container-width="true"
+				 data-hide-cover="false"
+				 data-show-facepile="true"
+				 data-show-posts="false">
+				<div class="fb-xfbml-parse-ignore">
+					<blockquote cite="{{ site.facebook.page }}"><a href="{{ site.facebook.page }}">{{ site.title }}</a></blockquote>
+				</div>
+			</div>
+
+			{%- include facebook-sdk.html %}
+		</div>
+
+	</div>
+</div>

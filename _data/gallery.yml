@@ -1,0 +1,29 @@
+# Ported from static/UPA-gallery.html and static/Gallery.html, which were
+# snapshots of the retired `albums`/`photos` tables. Album `id` and `url` keep
+# the legacy /gallery/<albumId>/ routes working.
+
+- id: 13
+  name: "ОУН-УПА"
+  url: /gallery/13/
+  photos:
+    - full: /imgs/panyuk2.jpg
+      thumb: /imgs/small_panyuk2.jpg
+      descr: 'Панюк  Прокіп  Васильович; "Хорт"; СБ УПА; 1922-11.11.1951; загинув, прикриваючи відступ Дудзяного, Струка, Орфенюка, похоронений  в  Яремчі'
+    - full: /imgs/abramyuk-batko2.jpg
+      thumb: /imgs/small_abramyuk-batko2.jpg
+      descr: 'Абрам''юк  Олексій  Іванович (Калайчук); "Чуб"; стрілець  УПА; 1898-1947; загинув  на  горі  Маливо, похоронений  в  Заріччі'
+    - full: /imgs/klymyuk2.jpg
+      thumb: /imgs/small_klymyuk2.jpg
+      descr: 'Клим''юк  Михайло Петрович; член ОУН; 1912 - ?; на заклик ОУН в 1938 році пішов на захист Карпатської України, загинув'
+    - full: /imgs/abramyuk-syn2.jpg
+      thumb: /imgs/small_abramyuk-syn2.jpg
+      descr: 'Абрам''юк  Василь  Олексійович; "Лев"; керівник боївки  районного  проводу  СБ, станичний; 1923-1947; загинув  в  урочищі Діл, похоронений  в  Заріччі, син  Абрам''юка  О.І.'
+    - full: /imgs/dudzyanyi2.jpg
+      thumb: /imgs/small_dudzyanyi2.jpg
+      descr: 'Дудзяний  Микола  Онуфрійович; "Гора"; СБ  УПА; 1912-28.12.1952; загинув  разом  з  Юрієм  Струком  в  урочищі  Жовка  біля  Яремчі'
+    - full: /imgs/vatsyk2.jpg
+      thumb: /imgs/small_vatsyk2.jpg
+      descr: 'Вацик  Павло  Іванович (Якуба); "Прут"; командир  Підкарпатського  куреня; 1917-01.03.1946; загинув  між селами  Рибне  та  Пациків'
+    - full: /imgs/struk2.jpg
+      thumb: /imgs/small_struk2.jpg
+      descr: 'Струк  Юрій  Васильович; "Чорноус"; СБ  УПА; 1913-28.12.1952; загинув  разом  з  Дудзяним  в  урочищі  Жовка  біля  Яремчі'

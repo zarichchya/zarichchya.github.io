@@ -1,0 +1,20 @@
+---
+layout: default
+title: "Фотогалерея"
+permalink: /gallery/
+description: "Фотоальбоми села Заріччя над Прутом."
+---
+{%- comment -%} Ported from static/Gallery.html {%- endcomment -%}
+<div id="main">
+	<h1>Фотогалерея</h1>
+
+	<h2>Для перегляду доступні такі альбоми:</h2>
+
+	<div class="catalog">
+		<ul>
+		{%- for album in site.data.gallery %}
+			<li><a href="{{ album.url }}">{{ album.name }} [{{ album.photos | size }}]</a></li>
+		{%- endfor %}
+		</ul>
+	</div>
+</div>

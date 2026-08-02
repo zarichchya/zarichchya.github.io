@@ -1,0 +1,26 @@
+{%- comment -%}
+Two modes, matching the PHP app:
+  sidebar: category -> Application_Model_Menu::CategoryMenu() — the current
+                       category as a heading plus every article in it
+  otherwise         -> DbTable_Menu::getGeneralMenuItems() (_data/menu.yml)
+{%- endcomment -%}
+<div id="sidebar">
+<ul id="right">
+{%- if page.sidebar == "category" %}
+{%- assign category_posts = site.posts | where: "category_id", page.category_id | sort: "priority" %}
+<li><h5><a href="/articles/{{ page.category_id }}/">{{ page.category_name }}</a></h5></li>
+{%- for post in category_posts %}
+<li><a href="{{ post.url }}" class="right-menu">{{ post.title }}</a></li>
+{%- endfor %}
+{%- else %}
+{%- for item in site.data.menu.sidebar %}
+<li>{% if item.type == "main" %}<h5>{% endif %}
+{%- if item.url %}<a href="{{ item.url }}" class="{{ item.type }}">{{ item.title }}</a>
+{%- else %}<div class="{{ item.type }}">{{ item.title }}</div>
+{%- endif %}
+{%- if item.type == "main" %}</h5>{% endif %}</li>
+{%- endfor %}
+{%- endif %}
+<li>&nbsp;</li>
+</ul>
+</div>

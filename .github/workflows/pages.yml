@@ -1,0 +1,58 @@
+name: Deploy Jekyll site to Pages
+
+# Built here rather than by GitHub's built-in Jekyll builder, which is pinned to
+# Jekyll 3.9 and would reject the `jekyll ~> 4.3` Gemfile.
+# Set Settings -> Pages -> Source to "GitHub Actions" for this to publish.
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Let a running deploy finish rather than cancelling it half-published.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+
+      # `enablement: true` also switches the Pages build type to "workflow", so
+      # this run is authoritative and GitHub's legacy branch builder stops
+      # racing it. Without it the repo keeps whatever Source the UI has set.
+      - id: pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Build
+        env:
+          JEKYLL_ENV: production
+        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,43 @@
+# Ported from Application_Model_DbTable_Menu::getGeneralMenuItems().
+# `type: main` renders inside <h5>, exactly as layout.phtml did.
+# An item with no `url` renders as a plain heading instead of a link.
+
+top:
+  - title: "Головна"
+    url: /
+    tooltip: "Вернутись на головну"
+  - title: "Статті"
+    url: /articles/
+    tooltip: "Переглянути всі статті"
+  - title: "Фотогалерея"
+    url: /gallery/
+    tooltip: "Зарічанські світлини"
+
+sidebar:
+  - title: "Головна"
+    url: /
+    type: main
+  - title: "Статті"
+    url: /articles/
+    type: main
+  - title: "Фотогалерея"
+    url: /gallery/
+    type: main
+  - title: "ОУН-УПА"
+    url: "https://goo.gl/photos/Ect2YaFyhChzHcjk6"
+    type: right-menu
+  - title: "Церковне життя"
+    url: "https://goo.gl/photos/4Fw4M9uQ177rbigy6"
+    type: right-menu
+  - title: "Роботи Абрам'юка Миколи Максимовича"
+    url: "https://photos.app.goo.gl/edmjJM2sdH3VXW6t6"
+    type: right-menu
+  - title: "Роботи Клим'юка Василя Михайловича"
+    url: "https://photos.app.goo.gl/eWCZzmoB9B5ufmLd6"
+    type: right-menu
+  - title: "Відео"
+    url: "http://www.youtube.com/playlist?list=PL6600F7D2A8729606&hl=uk"
+    type: main
+  - title: "Про сайт"
+    url: /about/
+    type: main
