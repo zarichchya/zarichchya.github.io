@@ -13,11 +13,8 @@ author:
   name: "Михайло Клим'юк"
   url: "https://www.facebook.com/mykhailo.klymyuk"
 
-# Footer credits, verbatim from application/layouts/scripts/layout.phtml
+# Start year of the footer copyright range; the end year is the build year.
 since: 2009
-hosting:
-  name: "Косівський портал"
-  url: "http://kosivart.if.ua/"
 
 # --- third-party ids lifted out of the old templates -------------------------
 google_analytics: "UA-88969692-1"
