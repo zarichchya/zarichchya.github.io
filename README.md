@@ -119,3 +119,4 @@ working. Posts carry an explicit `permalink` built from the old primary keys:
 - Article #65 (`[заголовок1]`, `category_id` 999) was the CMS's "new article"
   placeholder and is not imported — the PHP app filtered it out of every query.
 - Google Analytics only renders in `JEKYLL_ENV=production`.
+- 
