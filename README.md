@@ -75,10 +75,6 @@ from the old application's MySQL dump by a one-shot script. The migration is
 finished and both the script and the dump have been deleted — every file here is
 now hand-maintained, and articles are added by writing files as above.
 
-The dump itself is still recoverable if it's ever needed: it lives at
-`db/dump.sql` in the legacy PHP repository, and in this repo's history at
-`_tools/dump.sql` before commit `27feaba`.
-
 ## URLs
 
 Every legacy URL still resolves, so inbound links and search results keep
