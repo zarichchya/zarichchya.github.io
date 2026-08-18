@@ -15,8 +15,16 @@ collections:
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
+      - { label: "Layout", name: "layout", widget: "hidden", default: "article" }
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - { label: "Permalink", name: "permalink", widget: "string" }
+      - { label: "Article ID", name: "article_id", widget: "number", value_type: "int" }
+      - { label: "Category ID", name: "category_id", widget: "number", value_type: "int" }
+      - { label: "Category Name", name: "category_name", widget: "string" }
+      - { label: "Priority", name: "priority", widget: "number", value_type: "int", default: 5 }
+      - { label: "Sidebar", name: "sidebar", widget: "hidden", default: "category" }
       - { label: "Body", name: "body", widget: "markdown" }
   - name: "posts_html"
     label: "Posts (HTML)"
@@ -25,6 +33,14 @@ collections:
     format: "yaml-frontmatter"
     create: true
     fields:
+      - { label: "Layout", name: "layout", widget: "hidden", default: "article" }
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - { label: "Permalink", name: "permalink", widget: "string" }
+      - { label: "Article ID", name: "article_id", widget: "number", value_type: "int" }
+      - { label: "Category ID", name: "category_id", widget: "number", value_type: "int" }
+      - { label: "Category Name", name: "category_name", widget: "string" }
+      - { label: "Priority", name: "priority", widget: "number", value_type: "int", default: 5 }
+      - { label: "Sidebar", name: "sidebar", widget: "hidden", default: "category" }
       - { label: "Body", name: "body", widget: "markdown" }
