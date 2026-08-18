@@ -2,7 +2,7 @@ backend:
   name: github
   repo: zarichchya/zarichchya.github.io
   branch: main
-  base_url: https://your-worker.your-subdomain.workers.dev
+  base_url: https://decap-cms-oauth.mykola-klymyuk.workers.dev
   auth_endpoint: auth
 
 media_folder: "assets/images/uploads"
