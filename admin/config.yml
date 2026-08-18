@@ -5,12 +5,12 @@ backend:
   base_url: https://decap-cms-oauth.mykola-klymyuk.workers.dev
   auth_endpoint: auth
 
-media_folder: "assets/images/uploads"
-public_folder: "/assets/images/uploads"
+media_folder: "imgs"
+public_folder: "/imgs"
 
 collections:
-  - name: "posts"
-    label: "Posts"
+  - name: "posts_md"
+    label: "Posts (Markdown)"
     folder: "_posts"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
