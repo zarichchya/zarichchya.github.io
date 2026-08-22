@@ -35,10 +35,8 @@ layout: article
 title: "Назва статті"
 description: "Один рядок опису — показується у списках розділу"
 date: 2026-08-02
-permalink: /articles/7/nazva-statti/
 article_id: 66
 category_id: 7
-category_name: "Дослідження краєзнавців"
 priority: 1
 sidebar: category
 ---
@@ -50,12 +48,11 @@ What each field is for:
 
 | Field | Why it matters |
 | --- | --- |
-| `category_id` | **Puts the link in the sidebar.** `_includes/sidebar.html` selects posts by this and it must match a row in `_data/categories.yml`. |
+| `category_id` | **Puts the link in the sidebar** and derives the article's URL. `_includes/sidebar.html` selects posts by this, and it must match an `id` in `_data/categories.yml` — that's also where the sidebar heading, breadcrumb label and category URL come from, so there's nothing to keep in sync by hand. |
 | `priority` | Position within the sidebar and the category listing, ascending. Not the date. |
-| `category_name` | The sidebar heading and the breadcrumb label. |
 | `sidebar: category` | Shows the category menu instead of the site-wide one. |
-| `article_id` | Any unused number. Only needs to be present so the breadcrumb renders the category crumb. |
-| `permalink` | Free-form for new articles. Only the imported ones need their legacy `/articles/<cat>/<id>/` form. |
+| `article_id` | Any unused number. Combined with `category_id`, `_plugins/permalinks.rb` derives the article's permalink from it (`/articles/<category_id>/<article_id>/`), and its mere presence is what makes the breadcrumb render the category crumb. |
+| `permalink` | Only set this to opt out with a free-form slug — omit it and it's auto-generated from `category_id`/`article_id` (see above). |
 | `description` | The teaser under the title in listings, and the `<meta name="description">`. |
 
 Nothing else to update — the sidebar, the category page, `/articles/`,
@@ -78,7 +75,8 @@ now hand-maintained, and articles are added by writing files as above.
 ## URLs
 
 Every legacy URL still resolves, so inbound links and search results keep
-working. Posts carry an explicit `permalink` built from the old primary keys:
+working. `_plugins/permalinks.rb` derives each permalink from the old primary
+keys (`category_id`/`article_id`) at build time:
 
 | Legacy route | Jekyll source |
 | --- | --- |

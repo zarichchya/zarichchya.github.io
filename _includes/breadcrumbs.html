@@ -12,7 +12,8 @@ Any other page can add trail entries with a `crumbs:` list of {title, url}.
 {%- if page.category_id %}
 <li><a href="/articles/">Статті</a></li><li><span>&nbsp;&#47;&nbsp;</span></li>
 {%- if page.article_id %}
-<li><a href="/articles/{{ page.category_id }}/">{{ page.category_name }}</a></li><li><span>&nbsp;&#47;&nbsp;</span></li>
+{%- assign category = site.data.categories | where: "id", page.category_id | first %}
+<li><a href="{{ category.url }}">{{ category.name }}</a></li><li><span>&nbsp;&#47;&nbsp;</span></li>
 {%- endif %}
 {%- endif %}
 {%- for crumb in page.crumbs %}

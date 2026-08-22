@@ -2,6 +2,7 @@
 layout: default
 ---
 {%- include facebook-sdk.html %}
+{%- assign category = site.data.categories | where: "id", page.category_id | first %}
 <div id="main">
 	<h1>{{ page.title }}</h1>
 	<div class="rozdil">
@@ -13,7 +14,7 @@ layout: default
 		<h1>Куди далі?</h1>
 
 		<div id="properties">
-		<a href="/articles/{{ page.category_id }}/">Перейти в розділ "{{ page.category_name }}"</a><br />
+		<a href="{{ category.url }}">Перейти в розділ "{{ category.name }}"</a><br />
 		<a href="/articles/">Перейти в розділ "Статті"</a><br />
 		</div>
 

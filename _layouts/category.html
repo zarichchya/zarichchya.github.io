@@ -2,11 +2,12 @@
 layout: default
 ---
 {%- assign posts = site.posts | where: "category_id", page.category_id | sort: "priority" %}
+{%- assign category = site.data.categories | where: "id", page.category_id | first %}
 <div id="main">
 	<h1>Статті</h1>
 	<div class="catalog">
 		<ul>
-			<li><a href="/articles/{{ page.category_id }}/">{{ page.category_name }}</a></li>
+			<li><a href="{{ category.url }}">{{ category.name }}</a></li>
 			<li class="second">
 				<ul>
 				{%- for post in posts %}

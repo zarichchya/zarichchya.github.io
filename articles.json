@@ -5,12 +5,13 @@ sitemap: false
 ---
 [
 {%- for post in site.posts %}
+  {%- assign category = site.data.categories | where: "id", post.category_id | first %}
   {
     "title": {{ post.title | jsonify }},
     "descr": {{ post.description | jsonify }},
     "url": {{ post.url | jsonify }},
-    "category": {{ post.category_name | jsonify }},
-    "category_url": {{ post.category_id | prepend: "/articles/" | append: "/" | jsonify }}
+    "category": {{ category.name | jsonify }},
+    "category_url": {{ category.url | jsonify }}
   }{% unless forloop.last %},{% endunless %}
 {%- endfor %}
 ]

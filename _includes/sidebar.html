@@ -8,7 +8,8 @@ Two modes, matching the PHP app:
 <ul id="right">
 {%- if page.sidebar == "category" %}
 {%- assign category_posts = site.posts | where: "category_id", page.category_id | sort: "priority" %}
-<li><h5><a href="/articles/{{ page.category_id }}/">{{ page.category_name }}</a></h5></li>
+{%- assign category = site.data.categories | where: "id", page.category_id | first %}
+<li><h5><a href="{{ category.url }}">{{ category.name }}</a></h5></li>
 {%- for post in category_posts %}
 <li><a href="{{ post.url }}" class="right-menu">{{ post.title }}</a></li>
 {%- endfor %}
