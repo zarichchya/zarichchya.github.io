@@ -10,6 +10,7 @@ sidebar: category
 ---
 
 **Степан ПУШИК . Галичина і княгиня Ланка**
+{: style="text-align: center;"}
 
 *Витяг з дослідження, яке друкувалося у газеті «Галичина»*
 {: style="text-align: center;"}
