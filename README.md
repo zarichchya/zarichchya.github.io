@@ -62,27 +62,30 @@ rebuilds and deploys.
 
 The sidebar shown on the home, about and gallery pages is a different, site-wide
 menu — edit `_data/menu.yml` for that. To add a whole new category, add a row to
-`_data/categories.yml` and a listing page at `articles/<id>/index.html` (copy an
-existing one).
+`_data/categories.yml` — `_plugins/category_pages.rb` generates its
+`/articles/<id>/` listing page at build time, so there's no second file to
+create.
 
 ## Provenance
 
-`_posts/`, `_data/categories.yml` and `articles/<id>/` were originally imported
-from the old application's MySQL dump by a one-shot script. The migration is
-finished and both the script and the dump have been deleted — every file here is
-now hand-maintained, and articles are added by writing files as above.
+`_posts/` and `_data/categories.yml` were originally imported from the old
+application's MySQL dump by a one-shot script. The migration is finished and
+both the script and the dump have been deleted — every file here is now
+hand-maintained, and articles are added by writing files as above.
 
 ## URLs
 
 Every legacy URL still resolves, so inbound links and search results keep
-working. `_plugins/permalinks.rb` derives each permalink from the old primary
-keys (`category_id`/`article_id`) at build time:
+working. `_plugins/permalinks.rb` derives each post's permalink from the old
+primary keys (`category_id`/`article_id`), and `_plugins/category_pages.rb`
+generates each category's `/articles/<id>/` listing page and permalink from
+`_data/categories.yml`, both at build time:
 
 | Legacy route | Jekyll source |
 | --- | --- |
 | `/` | `index.html` |
 | `/articles/` | `articles/index.html` |
-| `/articles/:category_id/` | `articles/<id>/index.html` |
+| `/articles/:category_id/` | `_plugins/category_pages.rb` + `_data/categories.yml` |
 | `/articles/:category_id/:article_id/` | `_posts/*.html` |
 | `/about/` | `about.html` |
 | `/gallery/` | `gallery/index.html` |
