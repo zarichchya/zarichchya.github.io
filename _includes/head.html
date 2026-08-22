@@ -1,13 +1,6 @@
 <head>
 	<meta charset="utf-8" />
-	{%- comment -%}
-	Deliberately no viewport meta, matching the original. The layout is fixed
-	width (#menu 950px, #banner 920px) with no responsive CSS, so
-	`width=device-width` would render it at full CSS-pixel size into a phone
-	viewport -- oversized text plus horizontal overflow. Without it, mobile
-	browsers use the 980px fallback viewport and scale the page down, which is
-	how zarichchya.org.ua renders. Add one only alongside responsive CSS.
-	{%- endcomment -%}
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta name="google-site-verification" content="{{ site.google_site_verification }}" />
 	{%- comment -%} Zend's headTitle(): siteTitle + separator + page title {%- endcomment -%}
 	<title>{{ site.title }}{% if page.title %}{{ site.separator }}{{ page.title }}{% endif %}</title>
@@ -20,7 +13,9 @@
 	{%- endcomment -%}
 	<link rel="preload" href="/fonts/open-sans/open-sans-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
 	<link type="text/css" rel="stylesheet" href="/css/open-sans.css" />
-	<link type="text/css" rel="stylesheet" href="/css/template.css" />
+	{%- comment -%} Query-string cache-bust: without it, a returning visitor's
+	cached copy survives a CSS deploy until it separately expires. {%- endcomment -%}
+	<link type="text/css" rel="stylesheet" href="/css/template.css?v={{ site.time | date: '%s' }}" />
 	{%- for style in page.styles %}
 	<link href="{{ style }}" media="screen" rel="stylesheet" type="text/css" />
 	{%- endfor %}

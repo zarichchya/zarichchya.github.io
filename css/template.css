@@ -13,7 +13,7 @@ body {
 .search-form{position:absolute; right:10px; top:5px}
 .search-form input{margin:0 4px 0 0; padding:1px 4px 1px 4px; font-size:80%}
 
-#menu{width:950px; height:32px; margin:0 auto -20px; display:block; vertical-align:middle; font-family: "Times New Roman", Times, serif; font-size:100%}
+#menu{width:100%; max-width:950px; height:32px; margin:0 auto -20px; display:block; vertical-align:middle; font-family: "Times New Roman", Times, serif; font-size:100%}
 #menu ul{margin:0; padding:0}
 #menu a{/* padding:5px 10px; */ display:block; text-align:center}
 #menu li{float:left}
@@ -28,7 +28,7 @@ ul.bread{margin:7px 10px 0 10px; padding:0 0 7px 0; display:block}
 ul.bread li{margin:0 0 0 0; display:inline}
 ul.bread span{font-size:75%}
 ul.bread a{font-size:75%}
-#wrapper{width:963px; margin:0px auto}
+#wrapper{width:100%; max-width:963px; margin:0px auto}
 #page{margin:205px 0 0 0; padding:10px 0 10px; clear:both}
 #content{margin:0 0 20px 0}
 #main{width:738px; min-height:310px; margin:10px 10px 0; float:left}
@@ -40,7 +40,7 @@ ul.bread a{font-size:75%}
 
 #footer a{color:#900;}
 #footer a:visited{color:#ffd700;}
-#banner{width:920px; height:330px; margin:auto}
+#banner{width:calc(100% - 20px); max-width:920px; aspect-ratio:920/330; height:auto; margin:auto; position:relative}
 
 
 #page h1{margin:0 10px 0 0; padding:0 0 10px 0; top:0px; position:relative; font-size:175%; text-indent:0}
@@ -55,7 +55,7 @@ ul.bread a{font-size:75%}
 
 
 #footer{margin-top:120px; padding:10px 0 10px 0}
-#extend{width:918px; margin:0px auto 0px}
+#extend{width:100%; max-width:918px; margin:0px auto 0px}
 #footer dl{font-size:85%; display:block; float:left}
 #footer dt{width:228px; margin-bottom:5px}
 #footer dd a{font-size:95%}
@@ -80,6 +80,12 @@ ul.about a:hover{text-decoration:none}
 .text p{margin:0 0 10px 0; font-size:15px; text-indent: 50px;}
 .text a{border:none}
 .text a:hover{text-decoration:underline}
+
+/* Old article bodies carry fixed pixel widths (WYSIWYG imports) that would
+   otherwise overflow a narrow viewport. */
+.text img{max-width:100%; height:auto}
+.text table{display:block; max-width:100%; overflow-x:auto}
+.text iframe{max-width:100%; height:auto; aspect-ratio:680/600}
 
 LI.second UL LI DIV.text {font-size:120%; text-indent: 10px;}
 
@@ -228,17 +234,18 @@ ul.about a.selected{color:#ff7747}
 TABLE TD {padding:5px;}
 
 #slideshow {
-  position:absolute;
-
-  height:350px;
+  position:relative;
+  width:100%;
+  height:100%;
   }
 
 #slideshowShadow {
   position:absolute;
-  
+  top:0;
+  left:0;
   z-index:80;
-  width: 920px;
-  height:330px;
+  width: 100%;
+  height:100%;
   text-align:center;
 
   background-color: #000000;
@@ -246,9 +253,11 @@ TABLE TD {padding:5px;}
   }
 
 
-#slideshowShadow #in {width: 920px;
-                     height: 330px;
-                     line-height: 330px;}
+#slideshowShadow #in {width: 100%;
+                     height: 100%;
+                     display:flex;
+                     align-items:center;
+                     justify-content:center;}
 #slideshowShadow #in A {color:white; font-size:30px; font-weight:900; }
 
 
@@ -259,6 +268,9 @@ TABLE TD {padding:5px;}
   position:absolute;
   top:0;
   left:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
   z-index:8;
   }
 
@@ -277,3 +289,37 @@ TABLE TD {padding:5px;}
 {-moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px}
 #pre, #tooltip {-moz-box-shadow: 2px  2px 8px #000;	-webkit-box-shadow: 2px 2px 8px #000;	box-shadow: 2px 2px 8px #000;}
 .welcome, .black, .black-on-misc, #trans{opacity:.8; filter: alpha(opacity=80)}
+
+
+/* RESPONSIVE
+   Everything above is untouched and still governs viewports at or above the
+   963px design width -- the site looks exactly as it always has there. Below
+   that, #top and #h1 (both position:absolute in the desktop rules, stacked
+   over the hero photo by hand-tuned pixel offsets) switch to normal flow and
+   the two-column #main/#sidebar layout stacks into one column. */
+@media (max-width: 963px) {
+  /* body is display:table above this breakpoint (unclear why -- no vertical-align
+     depends on it) via automatic table layout, an over-wide descendant (e.g. a
+     legacy content table) can force the whole table -- and everything in it --
+     wider than the viewport regardless of width:100%. Switch out of table layout
+     here so nothing can do that. */
+  body{display:block}
+
+  #top{position:static}
+  #menu{margin:0 auto; display:flex; flex-wrap:wrap; justify-content:center}
+  #menu li{float:none}
+
+  #h1, #h1-e{position:static; margin:0; padding:20px 15px; text-align:center}
+  #h1 a, #h1-e a{width:100%; max-width:480px; height:0; padding-top:16.26%; margin:0 auto; background-size:contain; background-position:center}
+
+  #page{margin-top:0; background-image:none}
+
+  #main{width:auto; min-height:0; float:none; border-right:none; margin:10px}
+  #sidebar{width:auto; float:none; margin:20px 10px 0}
+  #right{width:auto}
+
+  .album IMG{width:100%; float:none}
+  .album .descr{width:auto; margin:10px 0 0; float:none}
+
+  #footer{margin-top:30px}
+}
