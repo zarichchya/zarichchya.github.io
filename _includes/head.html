@@ -20,9 +20,22 @@
 	<link href="{{ style }}" media="screen" rel="stylesheet" type="text/css" />
 	{%- endfor %}
 	{%- feed_meta %}
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 	{%- include analytics.html %}
+	{%- comment -%}
+	jQuery isn't loaded here globally -- only js/shadowbox.js needs it (it
+	calls the jQuery global directly at parse time), and only album pages
+	load shadowbox.js, so a page that declares it lists jQuery first in its
+	own `scripts:` front matter. Every other page skips the download.
+
+	Local scripts get the same cache-bust query string as template.css;
+	third-party URLs (e.g. the jQuery CDN) are already version-pinned in
+	their own path, so they're left alone.
+	{%- endcomment -%}
 	{%- for script in page.scripts %}
+	{%- if script contains '://' %}
 	<script src="{{ script }}"></script>
+	{%- else %}
+	<script src="{{ script }}?v={{ site.time | date: '%s' }}"></script>
+	{%- endif %}
 	{%- endfor %}
 </head>

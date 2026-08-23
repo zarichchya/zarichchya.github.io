@@ -4,10 +4,11 @@ layout: default
 {%- comment -%}
 Ported from static/UPA-gallery.html.
 
-Album pages must declare the lightbox assets in their own front matter:
+Album pages must declare the lightbox assets in their own front matter --
+jQuery first, since shadowbox.js calls the jQuery global at parse time:
 
   styles:  [/css/shadowbox.css]
-  scripts: [/js/shadowbox.js]
+  scripts: [https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js, /js/shadowbox.js]
 
 `_includes/head.html` reads `page.styles`/`page.scripts`, and Liquid resolves
 `page` against the document, not the layout — so declaring them here would be

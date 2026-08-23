@@ -451,6 +451,7 @@ li.second ul li div.text {
   height: 100%;
   object-fit: cover;
   z-index: 8;
+  transition: opacity 1s ease;
 }
 #slideshow img.active {
   z-index: 10;
