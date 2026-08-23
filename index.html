@@ -3,7 +3,6 @@ layout: default
 title: "Головна"
 permalink: /
 scripts:
-  - /js/1_p.js
   - /js/random-article.js
 ---
 {%- comment -%}
@@ -11,17 +10,44 @@ Ported from application/views/scripts/index/index.phtml.
 The slideshow used to be built by scanning public/slider/ in PHP
 (Application_Model_Photos::FirstPageImageSlider); Jekyll enumerates the same
 directory at build time instead.
+
+The crossfade itself is pure CSS: every image shares one @keyframes loop the
+length of a full rotation (slide_count * slide_seconds), each offset via its
+own animation-delay so they take turns. A negative delay is normal here --
+it means "this image's clock already started that many seconds ago", which
+is what lets the very first image show at full opacity immediately instead
+of fading in on page load. Because the loop length and offsets depend on how
+many photos are actually in slider/, the percentages have to be computed
+here rather than hardcoded in template.css.
 {%- endcomment -%}
+{%- assign slides = site.static_files | where_exp: "f", "f.path contains '/slider/'" %}
+{%- assign slide_seconds = 5 %}
+{%- assign fade_seconds = 1 %}
+{%- assign slide_count = slides.size %}
+{%- assign total_seconds = slide_count | times: slide_seconds %}
 <div id="banner">
 
 	<div id="slideshow">
-	{%- for file in site.static_files %}
-	{%- if file.path contains "/slider/" %}
-		<img src="{{ file.path }}" alt="{{ file.name }}" title="{{ file.name }}" />
-	{%- endif %}
+	{%- for file in slides %}
+		<img src="{{ file.path }}" alt="{{ file.name }}" title="{{ file.name }}"{% if slide_count > 1 %} style="animation-delay: {{ forloop.index0 | times: slide_seconds | minus: fade_seconds }}s"{% endif %} />
 	{%- endfor %}
 	</div>
 </div>
+{%- if slide_count > 1 %}
+<style>
+#slideshow img {
+	opacity: 0;
+	animation: slideshowFade {{ total_seconds }}s ease infinite;
+}
+@keyframes slideshowFade {
+	0% { opacity: 0; }
+	{{ fade_seconds | times: 100.0 | divided_by: total_seconds | round: 3 }}% { opacity: 1; }
+	{{ slide_seconds | times: 100.0 | divided_by: total_seconds | round: 3 }}% { opacity: 1; }
+	{{ slide_seconds | plus: fade_seconds | times: 100.0 | divided_by: total_seconds | round: 3 }}% { opacity: 0; }
+	100% { opacity: 0; }
+}
+</style>
+{%- endif %}
 
 <div id="main">
 
