@@ -54,7 +54,7 @@ Nothing else to update — `/articles/`, `feed.xml`, `sitemap.xml` and the rando
 home-page teaser all pick the post up automatically. Commit and push to
 `main`; the workflow rebuilds and deploys.
 
-The sidebar shown on every page is a site-wide menu, unrelated to individual
+The top bar shown on every page is a site-wide menu, unrelated to individual
 articles — edit `_data/menu.yml` for that.
 
 ## Provenance
@@ -90,14 +90,14 @@ paired with that article:
 
 | Zend Framework | Jekyll |
 | --- | --- |
-| `layouts/scripts/layout.phtml` | `_layouts/default.html` + `_includes/{head,topmenu,sidebar,footer,analytics}.html` |
+| `layouts/scripts/layout.phtml` | `_layouts/default.html` + `_includes/{head,topmenu,footer,analytics}.html` |
 | `views/scripts/articles/item.phtml` | `_layouts/article.html` |
 | `views/scripts/articles/category.phtml` | dropped — categories removed, see below |
 | `views/scripts/index/about.phtml` | `_layouts/page.html` + `about.html` |
 | `static/UPA-gallery.html` (snapshot) | `_layouts/album.html` + `_data/gallery.yml` |
-| `Model_Breadcrumbs` | `_includes/breadcrumbs.html` |
+| `Model_Breadcrumbs` | dropped — see below |
 | `Model_Menu::CategoryMenu` | dropped — categories removed, see below |
-| `DbTable_Menu::getGeneralMenuItems` | `_data/menu.yml` (`_includes/sidebar.html`) |
+| `DbTable_Menu::getGeneralMenuItems` | `_data/menu.yml` (`_includes/topmenu.html`) |
 | `Model_Photos::FirstPageImageSlider` | `site.static_files` loop in `index.html` |
 | `Model_ArticlesGeneral::getRandomArticle` | `articles.json` + `js/random-article.js` |
 | `settings` table | `_config.yml` |
@@ -116,6 +116,14 @@ paired with that article:
   post front matter mentions categories anymore. Pre-2026 category-based URLs
   still redirect instead of 404ing — see `_plugins/legacy_category_redirects.rb`
   and the URLs table above.
+- **The sidebar and breadcrumb trail were removed in 2026.** Every page used
+  to carry a second nav column (`_includes/sidebar.html`, `_data/menu.yml`'s
+  `sidebar:` list) and a breadcrumb trail (`_includes/breadcrumbs.html`).
+  Both are gone: the top bar (`_includes/topmenu.html`, `_data/menu.yml`'s
+  `top:` list) is now the site's only nav, and it highlights the current
+  section (a `.current` class on the matching link, computed from `page.url`
+  in `_includes/topmenu.html`) instead of a breadcrumb trail saying where you
+  are.
 - **The random home-page teaser now runs client-side** (`ORDER BY RAND()` has no
   static equivalent), so it still changes between visits.
 - Article #65 (`[заголовок1]`, `category_id` 999) was the CMS's "new article"

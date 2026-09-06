@@ -47,11 +47,41 @@ a, a:focus {
 }
 
 /* ==========================================================================
+   Palette
+   One accent red, one link-brown pair, one gold pair (for links on the dark
+   red header/footer bars), reused everywhere instead of each section
+   picking its own near-duplicate shade.
+   ========================================================================== */
+
+:root {
+  --red: #A31311;
+  --bar-red-start: #7d1d31;
+  --bar-red-end: #661527;
+  --link-brown: #604A30;
+  --link-brown-hover: #592511;
+  --gold: #E8D9B8;
+  --gold-hover: #F7E9C4;
+  --surface-cream: #F8F1E4;
+  --border-tan: #DCCEB2;
+
+  /* Absolute sizes, not percentages -- the old sheet nested percentages
+     inside percentages (e.g. a 130% link inside a 90% list inside a 100%
+     body), so the same-looking "90%" and "130%" resolved to a different
+     pixel size in every context. Two fixed rungs, referenced everywhere,
+     replace that: base (nav, body copy, list items, list titles, sidebar
+     headings) and large (the one actual page title). The breadcrumb trail
+     was the only thing using a third, smaller rung; it's gone along with
+     the breadcrumbs themselves. */
+  --font-base: 16px;
+  --font-lg: 28px;
+}
+
+/* ==========================================================================
    Base / typography
    ========================================================================== */
 
 html {
-  background: #E2D2C3 url(/img/bg/bg_tile.jpg) repeat center top;
+  background: #E2D2C3;
 }
 body {
   display: table;
@@ -63,15 +93,14 @@ p {
   color: #000000;
 }
 p a, #properties a {
-  border-bottom: 1px dotted #b69f80;
-  color: #997757;
+  text-decoration: underline;
+  color: var(--link-brown);
 }
 p a:hover, #properties a:hover {
-  border-bottom: 1px dotted #B5AC95;
-  color: #9f331a;
+  color: var(--link-brown-hover);
 }
 h1 a {
-  color: #A31311;
+  color: var(--red);
 }
 
 /* ==========================================================================
@@ -83,8 +112,8 @@ h1 a {
   height: 32px;
   position: absolute;
   top: 0px;
-  border-bottom: 2px solid #757C55;
-  background: #771A2D url(/img/bg/bg_red.jpg) repeat-x 0px -5px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  background: linear-gradient(var(--bar-red-start), var(--bar-red-end));
 }
 
 #menu {
@@ -94,7 +123,7 @@ h1 a {
   margin: 0 auto -20px;
   display: block;
   vertical-align: middle;
-  font-family: "Times New Roman", Times, serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 100%;
 }
 #menu ul {
@@ -110,10 +139,19 @@ h1 a {
 }
 #menu li a.root {
   padding: 7px 12px 7px;
-  color: #A3A471;
+  border-radius: 4px;
+  color: var(--gold);
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  transition: color 0.15s ease, background-color 0.15s ease;
 }
 #menu a.root:hover {
-  color: #cbcd8e;
+  color: var(--gold-hover);
+  background-color: rgba(255, 255, 255, 0.08);
+}
+#menu a.root.current {
+  color: var(--gold-hover);
+  background-color: rgba(255, 255, 255, 0.15);
 }
 
 #wrapper {
@@ -146,37 +184,31 @@ h1 a {
   margin: 205px 0 0 0;
   padding: 10px 0 10px;
   clear: both;
-  border: 1px solid #9F907A;
   background: #E8D6BE url(/img/bg/bg.jpg) no-repeat center -175px;
-  border-radius: 3px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
 }
 #content {
   margin: 0 0 20px 0;
 }
 #main {
-  width: 738px;
   min-height: 310px;
-  margin: 10px 10px 0;
-  float: left;
-  border-right: 1px dotted #B5AC95;
-}
-#sidebar {
-  width: 200px;
-  margin: 24px 0 0;
-  float: right;
+  margin: 10px;
 }
 
 #footer {
   margin-top: 120px;
-  padding: 10px 0 10px 0;
-  border-top: 2px solid #757C55;
-  background: #5D1322 url(/img/bg/bg_red.jpg) repeat-x 0px -43px;
+  padding: 14px 0;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.25);
+  background: linear-gradient(var(--bar-red-start), var(--bar-red-end));
 }
 #footer a {
-  color: #900;
+  color: var(--gold);
+  transition: color 0.15s ease;
 }
-#footer a:visited {
-  color: #ffd700;
+#footer a:hover {
+  color: var(--gold-hover);
+  text-decoration: underline;
 }
 #extend {
   width: 100%;
@@ -192,74 +224,6 @@ h1 a {
 }
 
 /* ==========================================================================
-   Breadcrumbs
-   ========================================================================== */
-
-ul.bread {
-  margin: 7px 10px 0 10px;
-  padding: 0 0 7px 0;
-  display: block;
-  border-bottom: 1px dotted #B5AC95;
-}
-ul.bread li {
-  display: inline;
-}
-ul.bread span {
-  font-size: 75%;
-}
-ul.bread a {
-  font-size: 75%;
-  color: #604A30;
-}
-ul.bread a:hover {
-  color: #592511;
-}
-
-/* ==========================================================================
-   Sidebar navigation (#sidebar > #right)
-   ========================================================================== */
-
-#right {
-  width: 180px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-size: 90%;
-}
-#right li a {
-  padding: 5px;
-  display: block;
-  color: #4f3c2b;
-  border-bottom: 1px dotted #B5AC95;
-}
-#right li div {
-  border-bottom: 1px dotted #B5AC95;
-}
-/* The sidebar menu heading (an <h5> holding either a link or a plain div)
-   -- always inside a sidebar <li>. The extra `li` (redundant given #right's
-   only children are <li>s) keeps this more specific than #right li a/div
-   above, so it wins regardless of which rule ends up first in the file. */
-#right li h5 a {
-  padding: 4px 0 5px 0;
-  font-size: 110%;
-  color: #900;
-}
-#right li h5 div {
-  padding: 4px 0 5px 0;
-  font-size: 110%;
-  color: #900;
-}
-/* The #right prefix isn't just scoping -- it's needed for specificity, to
-   outrank #right li a's color above. */
-#right a.right-menu {
-  padding: 5px 0 7px 0px;
-  color: #755538;
-}
-#right a.right-menu:hover {
-  color: #af7055;
-}
-
-/* ==========================================================================
    Article / page content
    ========================================================================== */
 
@@ -269,8 +233,9 @@ ul.bread a:hover {
 /* .item wraps an article; .article wraps a plain page (about, 404). Both
    always contain a .text div holding the actual body content. */
 .item, .article {
-  border: 1px solid #B5A98E;
-  background: #CAC0A7;
+  background: var(--surface-cream);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  border-radius: 6px;
 }
 .article .text {
   margin: 5px 20px 0 20px;
@@ -282,11 +247,10 @@ ul.bread a:hover {
 
 .text {
   text-align: justify;
-  font-size: 80%;
+  font-size: var(--font-base);
 }
 .text p {
   margin: 0 0 10px 0;
-  font-size: 15px;
   text-indent: 50px;
 }
 .text a {
@@ -305,39 +269,43 @@ ul.bread a:hover {
   display: block;
   max-width: 100%;
   overflow-x: auto;
+  border-collapse: collapse;
 }
-.text table td {
-  padding: 5px;
+.text table th, .text table td {
+  padding: 8px 10px;
+  border: 1px solid var(--border-tan);
+}
+.text table th {
+  background: var(--surface-cream);
 }
 .text iframe {
   max-width: 100%;
   height: auto;
   aspect-ratio: 680/600;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
 }
 
 #page h1 {
-  margin: 0 10px 0 0;
+  display: inline-block;
+  margin: 0 10px 14px 0;
   padding: 0 0 10px 0;
   top: 0px;
   position: relative;
-  font-size: 175%;
+  font-size: var(--font-lg);
   text-indent: 0;
-  color: #a31311;
-  border-bottom: 1px dotted #B5AC95;
+  color: var(--red);
+  border-bottom: 1px solid var(--border-tan);
 }
+/* Only ever plain text (the gallery intro line) -- categories used to also
+   put a link here, but that page is gone along with categories. */
 #page h2 {
   margin: 0 10px 0 10px;
   top: 0px;
   text-indent: 0;
   text-align: center;
-  color: #900;
-}
-#page h2 a {
-  font-size: 110%;
-  color: #900;
-}
-#page h2 a:hover {
-  border-bottom: 1px dotted #B5AC95;
+  font-size: var(--font-base);
+  color: var(--red);
 }
 
 /* ==========================================================================
@@ -351,59 +319,53 @@ ul.bread a:hover {
 .catalog ul {
   margin: 0 0 0 40px;
   padding: 0 0 10px;
-  font-size: 90%;
+  font-size: var(--font-base);
 }
 .catalog ul li {
-  font-style: italic;
   margin: 0 0 20px 0;
   padding: 1px 10px;
   display: block;
-  border-top: 1px solid #E6D7C2;
-  border-right: 1px solid #E6D7C2;
-  border-bottom: 1px solid #E6D7C2;
-  border-left: 10px solid #CBBD9E;
-  background: #dacbb5;
-}
-.catalog ul li:hover {
-  background: #D3C5AF;
-}
-.catalog ul li div {
-  padding: 5px;
-  margin: 0 0 20px 0;
-  border: none;
-  background: none;
 }
 .catalog ul a {
-  font-size: 130%;
+  font-size: var(--font-base);
   border: none;
   padding: 5px;
   display: block;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.2s ease;
 }
 .catalog ul a:hover {
   border: none;
+  text-decoration-color: currentColor;
 }
-.catalog ul.article-list {
+.catalog ul.flat-list {
   margin-left: 0;
 }
-.article-list li a {
+.catalog ul.flat-list li {
+  padding: 10px 15px;
+}
+.flat-list li a {
   display: inline;
 }
-.article-list li .date {
+/* Bold + red carries the emphasis; matching the title's size (rather than
+   exceeding it, as a stray 150% used to) keeps the title the visually
+   biggest thing on the row despite the date coming first. */
+.flat-list li .date {
   display: inline;
   font-style: normal;
   font-weight: bold;
-  font-size: 150%;
-  color: #a31311;
+  font-size: var(--font-base);
+  color: var(--red);
   padding: 0 10px 0 5px;
 }
 .catalog a {
   padding: 1px;
-  font-size: 105%;
-  color: #604A30;
+  color: var(--link-brown);
 }
 .catalog a:hover {
-  text-decoration: none;
-  color: #592511;
+  color: var(--link-brown-hover);
 }
 
 /* ==========================================================================
@@ -417,7 +379,9 @@ ul.bread a:hover {
   height: auto;
   margin: auto;
   position: relative;
-  border: 10px solid #CBC0A6;
+  border: 4px solid var(--surface-cream);
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   background: url(/img/pre/pre-dark.gif) no-repeat center center;
 }
 #slideshow {
@@ -448,7 +412,7 @@ ul.bread a:hover {
   margin-left: 10px;
 }
 #randomArticle a {
-  color: #A31311;
+  color: var(--red);
 }
 #randomArticle div a:hover {
   text-decoration: underline;
@@ -461,6 +425,12 @@ ul.bread a:hover {
    compact .fb-page header (homepage); .fb-comments (every article) varies
    with comment count, but most articles have few or none, so a smaller
    floor still helps without overshooting for the common case. */
+.fb-page, .fb-comments {
+  background: var(--surface-cream);
+  padding: 10px;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+}
 .fb-page {
   min-height: 70px;
 }
@@ -482,7 +452,9 @@ ul.bread a:hover {
 .album img {
   width: 40%;
   height: auto;
-  border: 10px solid #CBC0A6;
+  border: 4px solid var(--surface-cream);
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   float: left;
 }
 .album .descr {
@@ -499,8 +471,7 @@ ul.bread a:hover {
    Everything above is untouched and still governs viewports at or above the
    963px design width -- the site looks exactly as it always has there. Below
    that, #top and #h1 (both position:absolute in the desktop rules, stacked
-   over the hero photo by hand-tuned pixel offsets) switch to normal flow and
-   the two-column #main/#sidebar layout stacks into one column.
+   over the hero photo by hand-tuned pixel offsets) switch to normal flow.
    ========================================================================== */
 
 @media (max-width: 963px) {
@@ -548,19 +519,7 @@ ul.bread a:hover {
   }
 
   #main {
-    width: auto;
     min-height: 0;
-    float: none;
-    border-right: none;
-    margin: 10px;
-  }
-  #sidebar {
-    width: auto;
-    float: none;
-    margin: 20px 10px 0;
-  }
-  #right {
-    width: auto;
   }
 
   .album img {

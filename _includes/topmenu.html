@@ -1,7 +1,13 @@
 <div id="top" style="display:block">
 <ul id="menu">
 {%- for item in site.data.menu.top %}
-<li class="tooltip" title="{{ item.tooltip }}"><a href="{{ item.url }}" class="root">{{ item.title }}</a></li>
+{%- assign is_current = false %}
+{%- if item.url == "/" %}
+{%- if page.url == "/" %}{%- assign is_current = true %}{%- endif %}
+{%- elsif page.url contains item.url %}
+{%- assign is_current = true %}
+{%- endif %}
+<li class="tooltip" title="{{ item.tooltip }}"><a href="{{ item.url }}" class="root{% if is_current %} current{% endif %}">{{ item.title }}</a></li>
 {%- endfor %}
 <li class="tooltip" title=""><a href="" class="root">&nbsp;</a></li>
 </ul>
