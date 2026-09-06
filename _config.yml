@@ -25,9 +25,9 @@ facebook:
   locale: "uk_UA"
 
 # --- build -------------------------------------------------------------------
-# `_plugins/permalinks.rb` derives /articles/<category_id>/<article_id>/ (and
-# /articles/<category_id>/ for category pages) from front matter, so every
-# legacy URL still resolves without a hand-written `permalink` on each post.
+# `_plugins/permalinks.rb` derives /articles/<article_id>/ from front matter,
+# so every legacy URL still resolves without a hand-written `permalink` on
+# each post.
 permalink: pretty
 timezone: Europe/Kiev
 

@@ -5,8 +5,6 @@ description: "У Зарічу зібрали людей також в одне �
 date: 2015-08-15
 article_id: 51
 category_id: 8
-priority: 2
-sidebar: category
 ---
 
 **Василь Яшан "Під брунатним чоботом"**

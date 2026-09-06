@@ -5,10 +5,6 @@
  */
 (function () {
 	function render(container, article) {
-		var category = document.createElement('div');
-		category.id = 'category';
-		category.textContent = article.category;
-
 		var teaser = document.createElement('div');
 		teaser.id = 'text2';
 
@@ -22,7 +18,6 @@
 		more.textContent = '... далі';
 		teaser.appendChild(more);
 
-		container.appendChild(category);
 		container.appendChild(teaser);
 	}
 

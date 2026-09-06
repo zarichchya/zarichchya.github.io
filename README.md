@@ -33,12 +33,9 @@ old WYSIWYG editor.
 ---
 layout: article
 title: "Назва статті"
-description: "Один рядок опису — показується у списках розділу"
+description: "Один рядок опису — показується у списку статей"
 date: 2026-08-02
 article_id: 66
-category_id: 7
-priority: 1
-sidebar: category
 ---
 
 Текст статті у **Markdown**.
@@ -48,45 +45,47 @@ What each field is for:
 
 | Field | Why it matters |
 | --- | --- |
-| `category_id` | **Puts the link in the sidebar** and derives the article's URL. `_includes/sidebar.html` selects posts by this, and it must match an `id` in `_data/categories.yml` — that's also where the sidebar heading, breadcrumb label and category URL come from, so there's nothing to keep in sync by hand. |
-| `priority` | Position within the sidebar and the category listing, ascending. Not the date. |
-| `sidebar: category` | Shows the category menu instead of the site-wide one. |
-| `article_id` | Any unused number. Combined with `category_id`, `_plugins/permalinks.rb` derives the article's permalink from it (`/articles/<category_id>/<article_id>/`), and its mere presence is what makes the breadcrumb render the category crumb. |
-| `permalink` | Only set this to opt out with a free-form slug — omit it and it's auto-generated from `category_id`/`article_id` (see above). |
-| `description` | The teaser under the title in listings, and the `<meta name="description">`. |
+| `article_id` | Any unused number. `_plugins/permalinks.rb` derives the article's permalink from it (`/articles/<article_id>/`), and its mere presence is what makes the breadcrumb render the "Статті" crumb. |
+| `permalink` | Only set this to opt out with a free-form slug — omit it and it's auto-generated from `article_id` (see above). |
+| `description` | The teaser under the title in `/articles/`, and the `<meta name="description">`. |
+| `date` | Also the sort key for `/articles/` (newest first). |
 
-Nothing else to update — the sidebar, the category page, `/articles/`,
-`feed.xml`, `sitemap.xml` and the random home-page teaser all pick the post up
-from `category_id` and `priority`. Commit and push to `main`; the workflow
-rebuilds and deploys.
+Nothing else to update — `/articles/`, `feed.xml`, `sitemap.xml` and the random
+home-page teaser all pick the post up automatically. Commit and push to
+`main`; the workflow rebuilds and deploys.
 
-The sidebar shown on the home, about and gallery pages is a different, site-wide
-menu — edit `_data/menu.yml` for that. To add a whole new category, add a row to
-`_data/categories.yml` — `_plugins/category_pages.rb` generates its
-`/articles/<id>/` listing page at build time, so there's no second file to
-create.
+The sidebar shown on every page is a site-wide menu, unrelated to individual
+articles — edit `_data/menu.yml` for that.
+
+Don't set `category_id` on new articles — it's a legacy field kept only on
+imported posts (see below).
 
 ## Provenance
 
-`_posts/` and `_data/categories.yml` were originally imported from the old
-application's MySQL dump by a one-shot script. The migration is finished and
-both the script and the dump have been deleted — every file here is now
-hand-maintained, and articles are added by writing files as above.
+`_posts/` was originally imported from the old application's MySQL dump by a
+one-shot script, including a `category_id` per post reflecting the old app's
+categories. Categories as a concept were removed in 2026 (there's no more
+`_data/categories.yml`, category listing pages, or category sidebar), but
+`category_id` was kept on those old posts so `_plugins/legacy_category_redirects.rb`
+can still redirect their pre-2026 URLs (see below). The migration script and
+the dump have both been deleted — every file here is hand-maintained, and
+articles are added by writing files as above.
 
 ## URLs
 
 Every legacy URL still resolves, so inbound links and search results keep
-working. `_plugins/permalinks.rb` derives each post's permalink from the old
-primary keys (`category_id`/`article_id`), and `_plugins/category_pages.rb`
-generates each category's `/articles/<id>/` listing page and permalink from
-`_data/categories.yml`, both at build time:
+working. `_plugins/permalinks.rb` derives each post's permalink from
+`article_id`, and `_plugins/legacy_category_redirects.rb` generates a thin
+redirect page for each old post's pre-2026 category-based URL, both at build
+time:
 
 | Legacy route | Jekyll source |
 | --- | --- |
 | `/` | `index.html` |
-| `/articles/` | `articles/index.html` |
-| `/articles/:category_id/` | `_plugins/category_pages.rb` + `_data/categories.yml` |
-| `/articles/:category_id/:article_id/` | `_posts/*.html` |
+| `/articles/` | `articles/index.html` (flat list, newest first) |
+| `/articles/:article_id/` | `_posts/*.html` |
+| `/articles/:category_id/` | `_plugins/legacy_category_redirects.rb` → redirects to `/articles/` |
+| `/articles/:category_id/:article_id/` | `_plugins/legacy_category_redirects.rb` → redirects to `/articles/:article_id/` |
 | `/about/` | `about.html` |
 | `/gallery/` | `gallery/index.html` |
 | `/gallery/13/` | `gallery/13/index.html` |
@@ -98,12 +97,12 @@ generates each category's `/articles/<id>/` listing page and permalink from
 | --- | --- |
 | `layouts/scripts/layout.phtml` | `_layouts/default.html` + `_includes/{head,topmenu,sidebar,footer,analytics}.html` |
 | `views/scripts/articles/item.phtml` | `_layouts/article.html` |
-| `views/scripts/articles/category.phtml` | `_layouts/category.html` |
+| `views/scripts/articles/category.phtml` | dropped — categories removed, see below |
 | `views/scripts/index/about.phtml` | `_layouts/page.html` + `about.html` |
 | `static/UPA-gallery.html` (snapshot) | `_layouts/album.html` + `_data/gallery.yml` |
 | `Model_Breadcrumbs` | `_includes/breadcrumbs.html` |
-| `Model_Menu::CategoryMenu` | `_includes/sidebar.html` (`sidebar: category`) |
-| `DbTable_Menu::getGeneralMenuItems` | `_data/menu.yml` |
+| `Model_Menu::CategoryMenu` | dropped — categories removed, see below |
+| `DbTable_Menu::getGeneralMenuItems` | `_data/menu.yml` (`_includes/sidebar.html`) |
 | `Model_Photos::FirstPageImageSlider` | `site.static_files` loop in `index.html` |
 | `Model_ArticlesGeneral::getRandomArticle` | `articles.json` + `js/random-article.js` |
 | `settings` table | `_config.yml` |
@@ -113,8 +112,14 @@ generates each category's `/articles/<id>/` listing page and permalink from
 
 - **The imported posts' dates are synthetic.** The `articles` table had no
   timestamps, so the import dated them backwards from 2015-08-25 (the day the
-  dump was taken) in the order the PHP app displayed them. Listings sort on the
-  `priority` front matter, never on the date, so this only affects `feed.xml`.
+  dump was taken) in the order the PHP app displayed them. `/articles/` now
+  sorts on this same date, newest first.
+- **Categories were removed in 2026.** The site used to group articles under
+  categories (`_data/categories.yml`, `_layouts/category.html`,
+  `_plugins/category_pages.rb`, a category sidebar mode); `/articles/` is now
+  a single flat, newest-first list. Old posts kept their `category_id` so
+  their pre-2026 URLs still redirect instead of 404ing — see
+  `_plugins/legacy_category_redirects.rb` and the URLs table above.
 - **The random home-page teaser now runs client-side** (`ORDER BY RAND()` has no
   static equivalent), so it still changes between visits.
 - Article #65 (`[заголовок1]`, `category_id` 999) was the CMS's "new article"

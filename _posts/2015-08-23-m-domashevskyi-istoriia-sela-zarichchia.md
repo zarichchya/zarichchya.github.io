@@ -5,8 +5,6 @@ description: "Це велике гірське село, яке розкинул
 date: 2015-08-23
 article_id: 48
 category_id: 7
-priority: 3
-sidebar: category
 ---
 
 Історія Гуцульщини. Том II

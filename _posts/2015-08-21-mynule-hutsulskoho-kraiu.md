@@ -5,8 +5,6 @@ description: "Стаття друкувалася в журналі \"ПІК\" �
 date: 2015-08-21
 article_id: 60
 category_id: 7
-priority: 5
-sidebar: category
 ---
 
 **Минуле гуцульського краю**

@@ -5,8 +5,6 @@ description: Чи є зарічанці гуцулами
 date: 2015-08-11
 article_id: 55
 category_id: 11
-priority: 1
-sidebar: category
 ---
 
 Марія Лаврук

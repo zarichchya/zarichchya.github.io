@@ -235,11 +235,10 @@ ul.bread a:hover {
 #right li div {
   border-bottom: 1px dotted #B5AC95;
 }
-/* The category-menu heading (an <h5> holding either the category link or,
-   for the site-wide menu, a plain div) -- always inside a sidebar <li>. The
-   extra `li` (redundant given #right's only children are <li>s) keeps this
-   more specific than #right li a/div above, so it wins regardless of which
-   rule ends up first in the file. */
+/* The sidebar menu heading (an <h5> holding either a link or a plain div)
+   -- always inside a sidebar <li>. The extra `li` (redundant given #right's
+   only children are <li>s) keeps this more specific than #right li a/div
+   above, so it wins regardless of which rule ends up first in the file. */
 #right li h5 a {
   padding: 4px 0 5px 0;
   font-size: 110%;
@@ -316,12 +315,6 @@ ul.bread a:hover {
   aspect-ratio: 680/600;
 }
 
-/* A category's article list nested inside its sidebar/catalog entry. */
-li.second ul li div.text {
-  font-size: 120%;
-  text-indent: 10px;
-}
-
 #page h1 {
   margin: 0 10px 0 0;
   padding: 0 0 10px 0;
@@ -348,7 +341,7 @@ li.second ul li div.text {
 }
 
 /* ==========================================================================
-   Category listing (/articles/, /articles/:id/, gallery index)
+   Article / gallery listing (/articles/, gallery index)
    ========================================================================== */
 
 .catalog {
@@ -388,31 +381,6 @@ li.second ul li div.text {
 }
 .catalog ul a:hover {
   border: none;
-}
-.catalog ul ul {
-  margin: -20px 10px -10px 20px;
-  padding: 0;
-  display: block;
-  border: none;
-}
-.catalog ul ul li {
-  font-style: normal;
-  font-weight: normal;
-  margin: 0;
-  display: block;
-  border: none;
-  background: none;
-}
-.catalog ul ul li:hover {
-  border: none;
-  background: none;
-}
-.catalog li.second, .catalog li.second:hover {
-  border: none;
-  background: none;
-}
-.catalog ul ul a {
-  font-size: 120%;
 }
 .catalog a {
   padding: 1px;
@@ -461,9 +429,6 @@ li.second ul li div.text {
    fills in -- a real, measured layout-shift source, not a guess. */
 #randomArticle {
   min-height: 90px;
-}
-#randomArticle #category {
-  font-weight: 900;
 }
 #randomArticle #text2 {
   margin-left: 10px;

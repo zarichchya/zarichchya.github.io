@@ -5,8 +5,6 @@ description: "В дослідженні згадуються майстри, я�
 date: 2015-08-20
 article_id: 58
 category_id: 7
-priority: 7
-sidebar: category
 ---
 
 Іван Могитич*.* ГУЦУЛЬСЬКІ МАЙСТРИ БУДІВНИЧІ

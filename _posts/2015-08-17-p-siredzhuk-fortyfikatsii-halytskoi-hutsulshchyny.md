@@ -5,8 +5,6 @@ description: "Найкраще вежова система військовог�
 date: 2015-08-17
 article_id: 56
 category_id: 7
-priority: 10
-sidebar: category
 ---
 
 **Фортифікації Галицької Гуцульщини**

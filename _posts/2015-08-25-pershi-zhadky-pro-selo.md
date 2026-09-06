@@ -5,8 +5,6 @@ description: "Згадки про Заріччя в історичних док�
 date: 2015-08-25
 article_id: 52
 category_id: 9
-priority: 1
-sidebar: category
 ---
 
 Хронологія

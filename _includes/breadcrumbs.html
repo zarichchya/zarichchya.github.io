@@ -2,19 +2,14 @@
 Ported from Application_Model_Breadcrumbs::buildBreadcrumbs().
 
   /articles/            -> Головна /
-  /articles/:cat/       -> Головна / Статті /
-  /articles/:cat/:art/  -> Головна / Статті / <category> /
+  /articles/:art/       -> Головна / Статті /
 
 Any other page can add trail entries with a `crumbs:` list of {title, url}.
 {%- endcomment -%}
 <ul class="bread">
 <li><a href="/">Головна</a></li><li><span>&nbsp;&#47;&nbsp;</span></li>
-{%- if page.category_id %}
-<li><a href="/articles/">Статті</a></li><li><span>&nbsp;&#47;&nbsp;</span></li>
 {%- if page.article_id %}
-{%- assign category = site.data.categories | where: "id", page.category_id | first %}
-<li><a href="{{ category.url }}">{{ category.name }}</a></li><li><span>&nbsp;&#47;&nbsp;</span></li>
-{%- endif %}
+<li><a href="/articles/">Статті</a></li><li><span>&nbsp;&#47;&nbsp;</span></li>
 {%- endif %}
 {%- for crumb in page.crumbs %}
 <li>{% if crumb.url %}<a href="{{ crumb.url }}">{{ crumb.title }}</a>{% else %}<span>{{ crumb.title }}</span>{% endif %}</li><li><span>&nbsp;&#47;&nbsp;</span></li>

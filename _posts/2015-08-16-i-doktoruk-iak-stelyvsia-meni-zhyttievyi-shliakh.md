@@ -5,8 +5,6 @@ description: "В останній кітловині ріки Пруту на Г
 date: 2015-08-16
 article_id: 49
 category_id: 8
-priority: 1
-sidebar: category
 ---
 
 Д-р Іван Докторук

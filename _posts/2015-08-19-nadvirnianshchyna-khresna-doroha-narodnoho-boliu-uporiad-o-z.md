@@ -5,8 +5,6 @@ description: "Витяг з книги, присвячений зарічанц�
 date: 2015-08-19
 article_id: 59
 category_id: 7
-priority: 8
-sidebar: category
 ---
 
 **ЗАРІЧЧЯ**

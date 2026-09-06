@@ -5,8 +5,6 @@ description: "Прикарпатських краєзнавців найбіль
 date: 2015-08-18
 article_id: 57
 category_id: 7
-priority: 9
-sidebar: category
 ---
 
 **Степан ПУШИК . Галичина і княгиня Ланка**

@@ -19,11 +19,9 @@ collections:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Description", name: "description", widget: "text" }
       - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
-      - { label: "Permalink", name: "permalink", widget: "string", required: false, hint: "Leave blank to auto-generate /articles/<category id>/<article id>/" }
+      - { label: "Permalink", name: "permalink", widget: "string", required: false, hint: "Leave blank to auto-generate /articles/<article id>/" }
       - { label: "Article ID", name: "article_id", widget: "number", value_type: "int" }
-      - { label: "Category ID", name: "category_id", widget: "number", value_type: "int" }
-      - { label: "Priority", name: "priority", widget: "number", value_type: "int", default: 5 }
-      - { label: "Sidebar", name: "sidebar", widget: "hidden", default: "category" }
+      - { label: "Legacy category ID", name: "category_id", widget: "number", value_type: "int", required: false, hint: "Old imported articles only — don't set this on new articles. Keeps that article's pre-2026 /articles/<category id>/<article id>/ link redirecting instead of 404ing." }
       - { label: "Body", name: "body", widget: "markdown" }
   - name: "posts_html"
     label: "Posts (HTML)"
@@ -36,9 +34,7 @@ collections:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Description", name: "description", widget: "text" }
       - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
-      - { label: "Permalink", name: "permalink", widget: "string", required: false, hint: "Leave blank to auto-generate /articles/<category id>/<article id>/" }
+      - { label: "Permalink", name: "permalink", widget: "string", required: false, hint: "Leave blank to auto-generate /articles/<article id>/" }
       - { label: "Article ID", name: "article_id", widget: "number", value_type: "int" }
-      - { label: "Category ID", name: "category_id", widget: "number", value_type: "int" }
-      - { label: "Priority", name: "priority", widget: "number", value_type: "int", default: 5 }
-      - { label: "Sidebar", name: "sidebar", widget: "hidden", default: "category" }
+      - { label: "Legacy category ID", name: "category_id", widget: "number", value_type: "int", required: false, hint: "Old imported articles only — don't set this on new articles. Keeps that article's pre-2026 /articles/<category id>/<article id>/ link redirecting instead of 404ing." }
       - { label: "Body", name: "body", widget: "markdown" }

@@ -5,8 +5,6 @@ description: "Список зарічанців, які загинули на ф
 date: 2015-08-14
 article_id: 61
 category_id: 12
-priority: 1
-sidebar: category
 ---
 
 **КНИГА ПАМ’ЯТІ УКРАЇНИ**

@@ -5,8 +5,6 @@ description: "Інформація про священиків, які були 
 date: 2015-08-13
 article_id: 53
 category_id: 10
-priority: 1
-sidebar: category
 ---
 
 **Священики села Заріччя**
