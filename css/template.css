@@ -382,6 +382,13 @@ ul.bread a:hover {
 .catalog ul a:hover {
   border: none;
 }
+.catalog ul li .date {
+  display: block;
+  font-style: normal;
+  font-size: 80%;
+  color: #8a7857;
+  padding: 0 5px;
+}
 .catalog a {
   padding: 1px;
   font-size: 105%;
