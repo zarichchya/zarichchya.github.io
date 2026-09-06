@@ -63,16 +63,20 @@ a, a:focus {
   --gold-hover: #F7E9C4;
   --surface-cream: #F8F1E4;
   --border-tan: #DCCEB2;
+  /* Shared by every cream card (article body, Facebook widgets) so their
+     inner content lines up flush, even when the cards themselves sit at
+     different widths. */
+  --card-padding: 20px;
 
   /* Absolute sizes, not percentages -- the old sheet nested percentages
      inside percentages (e.g. a 130% link inside a 90% list inside a 100%
      body), so the same-looking "90%" and "130%" resolved to a different
-     pixel size in every context. Two fixed rungs, referenced everywhere,
-     replace that: base (nav, body copy, list items, list titles, sidebar
-     headings) and large (the one actual page title). The breadcrumb trail
-     was the only thing using a third, smaller rung; it's gone along with
-     the breadcrumbs themselves. */
+     pixel size in every context. Three fixed rungs: base (nav, body copy,
+     sidebar headings), list (the article/gallery list titles and dates --
+     bigger than body text since they're the main thing on those pages),
+     and large (the one actual page title). */
   --font-base: 16px;
+  --font-list: 20px;
   --font-lg: 28px;
 }
 
@@ -231,17 +235,17 @@ h1 a {
   margin: 0 10px 0 0;
 }
 /* .item wraps an article; .article wraps a plain page (about, 404). Both
-   always contain a .text div holding the actual body content. */
+   always contain a .text div holding the actual body content. The padding
+   lives here, not as margin on .text -- a margin on .text could collapse
+   through .item/.article (which have no border/padding of their own),
+   landing outside the card's background instead of inside it. */
 .item, .article {
   background: var(--surface-cream);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
   border-radius: 6px;
-}
-.article .text {
-  margin: 5px 20px 0 20px;
+  padding: var(--card-padding);
 }
 .item .text {
-  margin: 5px 20px 0 20px;
   clear: both;
 }
 
@@ -327,7 +331,7 @@ h1 a {
   display: block;
 }
 .catalog ul a {
-  font-size: var(--font-base);
+  font-size: var(--font-list);
   border: none;
   padding: 5px;
   display: block;
@@ -344,19 +348,20 @@ h1 a {
   margin-left: 0;
 }
 .catalog ul.flat-list li {
-  padding: 10px 15px;
+  padding: 4px 15px;
 }
 .flat-list li a {
   display: inline;
 }
 /* Bold + red carries the emphasis; matching the title's size (rather than
    exceeding it, as a stray 150% used to) keeps the title the visually
-   biggest thing on the row despite the date coming first. */
-.flat-list li .date {
+   biggest thing on the row despite the date coming first. .marker plays
+   the same role on the gallery list, which has no date to lead with. */
+.flat-list li .date, .flat-list li .marker {
   display: inline;
   font-style: normal;
   font-weight: bold;
-  font-size: var(--font-base);
+  font-size: var(--font-list);
   color: var(--red);
   padding: 0 10px 0 5px;
 }
@@ -424,10 +429,18 @@ h1 a {
    avoids that swap shifting the rest of the page -- measured ~70px for the
    compact .fb-page header (homepage); .fb-comments (every article) varies
    with comment count, but most articles have few or none, so a smaller
-   floor still helps without overshooting for the common case. */
-.fb-page, .fb-comments {
+   floor still helps without overshooting for the common case.
+
+   The card padding lives on .fb-widget, a wrapper around .fb-page/.fb-comments,
+   not on those elements themselves: both use a `data-width` of "auto" (or
+   "500" + data-adapt-container-width), which has Facebook's JS measure the
+   container and lock in a pixel width via inline style once its iframe loads,
+   switching the element to display:inline-block in the process. Padding put
+   directly on that element would then sit outside the measured width instead
+   of being absorbed by it, inflating the box beyond its surroundings. */
+.fb-widget {
   background: var(--surface-cream);
-  padding: 10px;
+  padding: var(--card-padding);
   border-radius: 6px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
 }
