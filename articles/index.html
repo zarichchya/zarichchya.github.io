@@ -5,15 +5,16 @@ permalink: /articles/
 description: "Всі статті про село Заріччя над Прутом."
 ---
 {%- assign posts = site.posts | sort: "date" | reverse %}
-{%- assign months = "Січня,Лютого,Березня,Квітня,Травня,Червня,Липня,Серпня,Вересня,Жовтня,Листопада,Грудня" | split: "," %}
+{%- assign months = "Січ,Лют,Бер,Кві,Тра,Чер,Лип,Сер,Вер,Жов,Лис,Гру" | split: "," %}
 <div id="main">
 	<h1>Статті</h1>
 	<div class="catalog">
-		<ul>
+		<ul class="article-list">
 		{%- for post in posts %}
 			{%- assign month_index = post.date | date: "%-m" | minus: 1 %}
-			<li><a href="{{ post.url }}">{{ post.title }}</a>
+			<li>
 				<span class="date">{{ post.date | date: "%-d" }} {{ months[month_index] }} {{ post.date | date: "%Y" }}</span>
+				<a href="{{ post.url }}">{{ post.title }}</a>
 				<div class="text">
 					{{ post.description }}...
 				</div>
