@@ -57,27 +57,22 @@ home-page teaser all pick the post up automatically. Commit and push to
 The sidebar shown on every page is a site-wide menu, unrelated to individual
 articles — edit `_data/menu.yml` for that.
 
-Don't set `category_id` on new articles — it's a legacy field kept only on
-imported posts (see below).
-
 ## Provenance
 
 `_posts/` was originally imported from the old application's MySQL dump by a
-one-shot script, including a `category_id` per post reflecting the old app's
-categories. Categories as a concept were removed in 2026 (there's no more
-`_data/categories.yml`, category listing pages, or category sidebar), but
-`category_id` was kept on those old posts so `_plugins/legacy_category_redirects.rb`
-can still redirect their pre-2026 URLs (see below). The migration script and
-the dump have both been deleted — every file here is hand-maintained, and
-articles are added by writing files as above.
+one-shot script. The migration script and the dump have both been deleted —
+every file here is hand-maintained, and articles are added by writing files
+as above.
 
 ## URLs
 
 Every legacy URL still resolves, so inbound links and search results keep
 working. `_plugins/permalinks.rb` derives each post's permalink from
 `article_id`, and `_plugins/legacy_category_redirects.rb` generates a thin
-redirect page for each old post's pre-2026 category-based URL, both at build
-time:
+redirect page for every `(legacy category id) × (post)` combination at build
+time — since `article_id` alone is globally unique and picks the redirect
+target, it doesn't matter whether a given old category id was ever really
+paired with that article:
 
 | Legacy route | Jekyll source |
 | --- | --- |
@@ -116,10 +111,11 @@ time:
   sorts on this same date, newest first.
 - **Categories were removed in 2026.** The site used to group articles under
   categories (`_data/categories.yml`, `_layouts/category.html`,
-  `_plugins/category_pages.rb`, a category sidebar mode); `/articles/` is now
-  a single flat, newest-first list. Old posts kept their `category_id` so
-  their pre-2026 URLs still redirect instead of 404ing — see
-  `_plugins/legacy_category_redirects.rb` and the URLs table above.
+  `_plugins/category_pages.rb`, a `category_id` on every post, a category
+  sidebar mode); `/articles/` is now a single flat, newest-first list, and no
+  post front matter mentions categories anymore. Pre-2026 category-based URLs
+  still redirect instead of 404ing — see `_plugins/legacy_category_redirects.rb`
+  and the URLs table above.
 - **The random home-page teaser now runs client-side** (`ORDER BY RAND()` has no
   static equivalent), so it still changes between visits.
 - Article #65 (`[заголовок1]`, `category_id` 999) was the CMS's "new article"
