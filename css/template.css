@@ -1,393 +1,280 @@
 /* ==========================================================================
-   Reset
-   ========================================================================== */
-
-html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form,
-fieldset, input, textarea, optgroup, button, p, blockquote, th, td {
-  margin: 0;
-  padding: 0;
-}
-ul, li {
-  border: 0;
-  outline: 0;
-  vertical-align: baseline;
-  background: transparent;
-}
-h1, h2, h3, h4, h5, h6 {
-  font-size: 100%;
-  font-weight: normal;
-}
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-  padding: 5px;
-}
-ol, ul {
-  list-style: none;
-}
-fieldset, img {
-  border: 0;
-}
-input, textarea, select, optgroup, option, button {
-  font-family: inherit;
-  font-size: 100%;
-}
-button, input {
-  width: auto;
-  overflow: visible;
-}
-dl li {
-  list-style: none;
-}
-a, a:focus {
-  outline: none;
-  background: transparent;
-  text-decoration: none;
-  border: none;
-}
-
-/* ==========================================================================
-   Palette
-   One accent red, one link-brown pair, one gold pair (for links on the dark
-   red header/footer bars), reused everywhere instead of each section
-   picking its own near-duplicate shade.
+   Tokens
+   A quiet, editorial look: white page, one serif face, near-black text, a
+   muted grey for secondary text, hairline rules, and a single rust-red
+   accent for links and the brand. Everything below reads from these.
    ========================================================================== */
 
 :root {
-  --red: #A31311;
-  --bar-red-start: #7d1d31;
-  --bar-red-end: #661527;
-  --link-brown: #604A30;
-  --link-brown-hover: #592511;
-  --gold: #E8D9B8;
-  --gold-hover: #F7E9C4;
-  --surface-cream: #F8F1E4;
-  --border-tan: #DCCEB2;
-  /* Shared by every cream card (article body, Facebook widgets) so their
-     inner content lines up flush, even when the cards themselves sit at
-     different widths. */
-  --card-padding: 20px;
+  --bg: #ffffff;
+  --fg: #1f1d1a;
+  --muted: #6f6b64;
+  --rule: #e6e2da;
+  --accent: #8a3222;
+  --card: #f7f5f0;
 
-  /* Absolute sizes, not percentages -- the old sheet nested percentages
-     inside percentages (e.g. a 130% link inside a 90% list inside a 100%
-     body), so the same-looking "90%" and "130%" resolved to a different
-     pixel size in every context. Three fixed rungs: base (nav, body copy,
-     sidebar headings), list (the article/gallery list titles and dates --
-     bigger than body text since they're the main thing on those pages),
-     and large (the one actual page title). */
-  --font-base: 16px;
-  --font-list: 20px;
-  --font-lg: 28px;
+  --page: 60rem;
+  --gap: 1.5rem;
+
+  --serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, "Times New Roman", serif;
 }
 
 /* ==========================================================================
-   Base / typography
+   Base
    ========================================================================== */
 
+*, *::before, *::after {
+  box-sizing: border-box;
+}
 html {
-  background: #E2D2C3;
+  -webkit-text-size-adjust: 100%;
 }
 body {
-  display: table;
-  width: 100%;
-  font-family: 'Open Sans', sans-serif;
-  background: url(/img/bg/bg.jpg) no-repeat center 33px;
-}
-p {
-  color: #000000;
-}
-p a, #properties a {
-  text-decoration: underline;
-  color: var(--link-brown);
-}
-p a:hover, #properties a:hover {
-  color: var(--link-brown-hover);
-}
-h1 a {
-  color: var(--red);
-}
-
-/* ==========================================================================
-   Page skeleton: header bar, logo, two-column body, footer
-   ========================================================================== */
-
-#top {
-  width: 100%;
-  height: 32px;
-  position: absolute;
-  top: 0px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
-  background: linear-gradient(var(--bar-red-start), var(--bar-red-end));
-}
-
-#menu {
-  width: 100%;
-  max-width: 950px;
-  height: 32px;
-  margin: 0 auto -20px;
-  display: block;
-  vertical-align: middle;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 100%;
-}
-#menu ul {
   margin: 0;
-  padding: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.7;
 }
-#menu li {
-  float: left;
-}
-#menu a {
-  display: block;
-  text-align: center;
-}
-#menu li a.root {
-  padding: 7px 12px 7px;
-  border-radius: 4px;
-  color: var(--gold);
-  font-weight: 600;
-  letter-spacing: 0.3px;
-  transition: color 0.15s ease, background-color 0.15s ease;
-}
-#menu a.root:hover {
-  color: var(--gold-hover);
-  background-color: rgba(255, 255, 255, 0.08);
-}
-#menu a.root.current {
-  color: var(--gold-hover);
-  background-color: rgba(255, 255, 255, 0.15);
-}
-
-#wrapper {
-  width: 100%;
-  max-width: 963px;
-  margin: 0px auto;
-}
-
-/* #h1 is the site title, image-replaced with the site logo. Its anchor
-   contains the real site title text, pulled off-screen so the background
-   image shows instead -- see the responsive section for how this becomes
-   a normal-flow, fluid-width block below the 963px design width. */
-#h1 {
-  margin-left: 187px;
-  top: 133px;
-  text-indent: -9999px;
-  position: absolute;
-}
-#h1 a {
-  width: 615px;
-  height: 100px;
-  display: block;
-  background: url(/img/hutsul.png) no-repeat;
-}
-
-/* #page's top margin exists purely to clear the absolutely-positioned #top
-   and #h1 above it -- see the responsive section, where both switch to
-   normal flow and this margin is no longer needed. */
-#page {
-  margin: 205px 0 0 0;
-  padding: 10px 0 10px;
-  clear: both;
-  background: #E8D6BE url(/img/bg/bg.jpg) no-repeat center -175px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-  border-radius: 8px;
-}
-#content {
-  margin: 0 0 20px 0;
-}
-#main {
-  min-height: 310px;
-  margin: 10px;
-}
-
-#footer {
-  margin-top: 120px;
-  padding: 14px 0;
-  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.25);
-  background: linear-gradient(var(--bar-red-start), var(--bar-red-end));
-}
-#footer a {
-  color: var(--gold);
-  transition: color 0.15s ease;
-}
-#footer a:hover {
-  color: var(--gold-hover);
-  text-decoration: underline;
-}
-#extend {
-  width: 100%;
-  max-width: 918px;
-  margin: 0px auto 0px;
-}
-
-.clear, .clear br {
-  clear: both;
-  display: block;
-  height: 0px;
-  width: 0px;
-}
-
-/* ==========================================================================
-   Article / page content
-   ========================================================================== */
-
-.rozdil {
-  margin: 0 10px 0 0;
-}
-/* .item wraps an article; .article wraps a plain page (about, 404). Both
-   always contain a .text div holding the actual body content. The padding
-   lives here, not as margin on .text -- a margin on .text could collapse
-   through .item/.article (which have no border/padding of their own),
-   landing outside the card's background instead of inside it. */
-.item, .article {
-  background: var(--surface-cream);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
-  border-radius: 6px;
-  padding: var(--card-padding);
-}
-.item .text {
-  clear: both;
-}
-
-.text {
-  text-align: justify;
-  font-size: var(--font-base);
-}
-.text p {
-  margin: 0 0 10px 0;
-  text-indent: 50px;
-}
-.text a {
-  border: none;
-}
-.text a:hover {
-  text-decoration: underline;
-}
-/* Old article bodies carry fixed pixel widths (WYSIWYG imports) that would
-   otherwise overflow a narrow viewport. */
-.text img {
+img {
   max-width: 100%;
   height: auto;
 }
-.text table {
+a {
+  color: var(--accent);
+  text-underline-offset: 0.15em;
+  text-decoration-thickness: 1px;
+}
+a:hover {
+  text-decoration-thickness: 2px;
+}
+h1, h2, h3 {
+  line-height: 1.25;
+}
+.clear {
+  clear: both;
+}
+
+.wrap {
+  max-width: var(--page);
+  margin: 0 auto;
+  padding: 0 var(--gap);
+}
+
+/* ==========================================================================
+   Site header: brand left, section links right, hairline underneath
+   ========================================================================== */
+
+header.site {
+  border-bottom: 1px solid var(--rule);
+}
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem var(--gap);
+  flex-wrap: wrap;
+  padding-top: 1.15rem;
+  padding-bottom: 1.15rem;
+}
+.brand {
+  display: block;
+  max-width: 100%;
+  text-decoration: none;
+}
+/* The site's original lettering (img/logo.png: hutsul.png cropped to its
+   opaque area) is gold, drawn for the old dark-red header bar and unreadable
+   on white. Used as a mask, only its shape is kept and it's painted in the
+   accent colour instead -- same letterforms, recoloured by CSS. */
+.brand-logo {
+  display: block;
+  width: 326px;
+  max-width: 100%;
+  aspect-ratio: 545/47;
+  background-color: var(--accent);
+  -webkit-mask: url(/img/logo.png) no-repeat center / contain;
+  mask: url(/img/logo.png) no-repeat center / contain;
+}
+header.site nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.4rem;
+}
+header.site nav a {
+  color: var(--muted);
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+header.site nav a:hover {
+  color: var(--fg);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+}
+header.site nav a.current {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   Page body
+   ========================================================================== */
+
+main {
+  padding-top: 2.5rem;
+  padding-bottom: 1rem;
+}
+
+main h1 {
+  margin: 0 0 0.5rem;
+  font-size: 2.7rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+/* Item count after a listing title, e.g. "Статті 15". */
+h1 .n {
+  color: var(--muted);
+  font-size: 0.42em;
+  font-weight: 400;
+  vertical-align: super;
+  margin-left: 0.15em;
+}
+/* Small grey line above or below a title: a date, a parent section link. */
+.when, .kicker {
+  margin: -0.2rem 0 0.9rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.kicker {
+  margin: 0 0 0.3rem;
+}
+.when a, .kicker a {
+  color: var(--muted);
+}
+.lede {
+  margin: 0 0 1.5rem;
+  color: var(--muted);
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+/* ==========================================================================
+   Listings (/articles/, /gallery/, the home page teaser)
+   A bold, small group heading (a date, or a label), then entries: a bold
+   underlined title link, an optional grey meta line, a plain summary.
+   ========================================================================== */
+
+.day {
+  margin: 0 0 2.2rem;
+}
+.dayh {
+  margin: 0 0 0.8rem;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.item + .item {
+  margin-top: 1.3rem;
+  padding-top: 1.3rem;
+  border-top: 1px solid var(--rule);
+}
+.item h3 {
+  margin: 0 0 0.3rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+.where {
+  margin: 0 0 0.35rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+.sum {
+  margin: 0;
+}
+.more {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   Article / page prose
+   ========================================================================== */
+
+.prose p {
+  margin: 1rem 0;
+}
+.prose h2 {
+  margin: 2.2rem 0 0.6rem;
+  font-size: 1.35rem;
+}
+.prose h3 {
+  margin: 1.8rem 0 0.5rem;
+  font-size: 1.15rem;
+}
+.prose strong, .prose b {
+  font-weight: 600;
+}
+.prose ul, .prose ol {
+  padding-left: 1.4rem;
+}
+.prose blockquote {
+  margin: 1.5rem 0;
+  padding: 0 0 0 1.2rem;
+  border-left: 3px solid var(--rule);
+  color: var(--muted);
+}
+.prose hr {
+  margin: 2rem 0;
+  border: 0;
+  border-top: 1px solid var(--rule);
+}
+.prose img {
+  border-radius: 3px;
+}
+/* Legacy tables can be wider than the column; let them scroll instead of
+   stretching the page. */
+.prose table {
   display: block;
   max-width: 100%;
   overflow-x: auto;
+  margin: 1.5rem 0;
   border-collapse: collapse;
+  font-size: 0.95rem;
+  line-height: 1.5;
 }
-.text table th, .text table td {
-  padding: 8px 10px;
-  border: 1px solid var(--border-tan);
+.prose th, .prose td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--rule);
+  text-align: left;
+  vertical-align: top;
 }
-.text table th {
-  background: var(--surface-cream);
+.prose th {
+  border-bottom-color: var(--fg);
+  font-weight: 700;
 }
-.text iframe {
+.prose iframe {
   max-width: 100%;
   height: auto;
   aspect-ratio: 680/600;
-  border-radius: 6px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  border: 0;
+  border-radius: 3px;
 }
-
-#page h1 {
-  display: inline-block;
-  margin: 0 10px 14px 0;
-  padding: 0 0 10px 0;
-  top: 0px;
-  position: relative;
-  font-size: var(--font-lg);
-  text-indent: 0;
-  color: var(--red);
-  border-bottom: 1px solid var(--border-tan);
-}
-/* Only ever plain text (the gallery intro line) -- categories used to also
-   put a link here, but that page is gone along with categories. */
-#page h2 {
-  margin: 0 10px 0 10px;
-  top: 0px;
-  text-indent: 0;
-  text-align: center;
-  font-size: var(--font-base);
-  color: var(--red);
+.back {
+  margin: 2.5rem 0 0;
+  font-size: 0.95rem;
 }
 
 /* ==========================================================================
-   Article / gallery listing (/articles/, gallery index)
-   ========================================================================== */
-
-.catalog {
-  margin: 0 10px 0 0;
-  padding: 10px 0 0 0;
-}
-.catalog ul {
-  margin: 0 0 0 40px;
-  padding: 0 0 10px;
-  font-size: var(--font-base);
-}
-.catalog ul li {
-  margin: 0 0 20px 0;
-  padding: 1px 10px;
-  display: block;
-}
-.catalog ul a {
-  font-size: var(--font-list);
-  border: none;
-  padding: 5px;
-  display: block;
-  text-decoration: underline;
-  text-decoration-color: transparent;
-  text-underline-offset: 3px;
-  transition: text-decoration-color 0.2s ease;
-}
-.catalog ul a:hover {
-  border: none;
-  text-decoration-color: currentColor;
-}
-.catalog ul.flat-list {
-  margin-left: 0;
-}
-.catalog ul.flat-list li {
-  padding: 4px 15px;
-}
-.flat-list li a {
-  display: inline;
-}
-/* Bold + red carries the emphasis; matching the title's size (rather than
-   exceeding it, as a stray 150% used to) keeps the title the visually
-   biggest thing on the row despite the date coming first. .marker plays
-   the same role on the gallery list, which has no date to lead with. */
-.flat-list li .date, .flat-list li .marker {
-  display: inline;
-  font-style: normal;
-  font-weight: bold;
-  font-size: var(--font-list);
-  color: var(--red);
-  padding: 0 10px 0 5px;
-}
-.catalog a {
-  padding: 1px;
-  color: var(--link-brown);
-}
-.catalog a:hover {
-  color: var(--link-brown-hover);
-}
-
-/* ==========================================================================
-   Homepage banner slideshow
+   Home page banner slideshow
    ========================================================================== */
 
 #banner {
-  width: calc(100% - 20px);
-  max-width: 920px;
   aspect-ratio: 920/330;
-  height: auto;
-  margin: auto;
+  margin: 0 0 2.5rem;
   position: relative;
-  border: 4px solid var(--surface-cream);
-  border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  background: url(/img/pre/pre-dark.gif) no-repeat center center;
+  overflow: hidden;
+  border-radius: 3px;
+  background: var(--card);
 }
 #slideshow {
   position: relative;
@@ -406,43 +293,29 @@ h1 a {
   object-fit: cover;
 }
 
-/* Homepage teaser for a random article, filled in by js/random-article.js.
-   It's empty until that fetch resolves; reserving space for roughly the
-   longest current teaser (measured ~88px) avoids the page jumping when it
-   fills in -- a real, measured layout-shift source, not a guess. */
+/* Filled in by js/random-article.js after a fetch; reserving roughly one
+   teaser's height keeps the page from jumping when it arrives. */
 #randomArticle {
-  min-height: 90px;
-}
-#randomArticle #text2 {
-  margin-left: 10px;
-}
-#randomArticle a {
-  color: var(--red);
-}
-#randomArticle div a:hover {
-  text-decoration: underline;
+  min-height: 5.5rem;
 }
 
-/* Facebook's SDK (loaded async, see _includes/facebook-sdk.html) replaces
-   .fb-page's fallback link and .fb-comments' empty div with an iframe once
-   it loads, well after first paint. Reserving roughly their settled height
-   avoids that swap shifting the rest of the page -- measured ~70px for the
-   compact .fb-page header (homepage); .fb-comments (every article) varies
-   with comment count, but most articles have few or none, so a smaller
-   floor still helps without overshooting for the common case.
+/* ==========================================================================
+   Facebook widgets
+   The SDK (loaded async, see _includes/facebook-sdk.html) swaps these
+   placeholders for iframes well after first paint; the min-heights reserve
+   roughly their settled size so that swap doesn't shift the page. Any
+   spacing lives on the .fb-widget wrapper, not the .fb-* element itself:
+   Facebook measures that element and pins an inline pixel width on it, so
+   padding placed there would end up outside the measured box.
+   ========================================================================== */
 
-   The card padding lives on .fb-widget, a wrapper around .fb-page/.fb-comments,
-   not on those elements themselves: both use a `data-width` of "auto" (or
-   "500" + data-adapt-container-width), which has Facebook's JS measure the
-   container and lock in a pixel width via inline style once its iframe loads,
-   switching the element to display:inline-block in the process. Padding put
-   directly on that element would then sit outside the measured width instead
-   of being absorbed by it, inflating the box beyond its surroundings. */
 .fb-widget {
-  background: var(--surface-cream);
-  padding: var(--card-padding);
-  border-radius: 6px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+}
+.fb-widget.centered {
+  text-align: center;
 }
 .fb-page {
   min-height: 70px;
@@ -452,100 +325,88 @@ h1 a {
 }
 
 /* ==========================================================================
-   Photo gallery album
+   Photo album
    ========================================================================== */
 
-.album {
-  margin-right: 35px;
-  padding-left: 25px;
+.album figure {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  gap: var(--gap);
+  align-items: start;
+  margin: 0;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--rule);
 }
-.album .row {
-  margin: 10px 0px 0px 0px;
+.album figure:first-child {
+  border-top: 0;
+  padding-top: 0.5rem;
 }
 .album img {
-  width: 40%;
-  height: auto;
-  border: 4px solid var(--surface-cream);
-  border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  float: left;
+  display: block;
+  width: 100%;
+  border-radius: 3px;
 }
-.album .descr {
-  margin: 0px 0px 0px 10px;
-  width: 350px;
-  float: left;
-}
-.album h2 {
-  text-align: left;
+.album figcaption {
+  font-size: 0.95rem;
 }
 
 /* ==========================================================================
-   Responsive
-   Everything above is untouched and still governs viewports at or above the
-   963px design width -- the site looks exactly as it always has there. Below
-   that, #top and #h1 (both position:absolute in the desktop rules, stacked
-   over the hero photo by hand-tuned pixel offsets) switch to normal flow.
+   Site footer
    ========================================================================== */
 
-@media (max-width: 963px) {
-  /* body is display:table above this breakpoint (unclear why -- no vertical-align
-     depends on it) via automatic table layout, an over-wide descendant (e.g. a
-     legacy content table) can force the whole table -- and everything in it --
-     wider than the viewport regardless of width:100%. Switch out of table layout
-     here so nothing can do that. */
+footer.site {
+  margin-top: 2.5rem;
+  padding: 2rem 0 3rem;
+  border-top: 1px solid var(--rule);
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-align: center;
+}
+.foot-brand {
+  font-weight: 700;
+  text-decoration: none;
+}
+footer.site nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.25rem 1.2rem;
+  margin-top: 0.85rem;
+}
+footer.site nav a {
+  color: var(--muted);
+  text-decoration: none;
+}
+footer.site nav a:hover {
+  color: var(--fg);
+  text-decoration: underline;
+}
+.foot-note {
+  margin: 0.85rem 0 0;
+}
+.foot-note a {
+  color: var(--muted);
+}
+
+/* ==========================================================================
+   Narrow screens
+   ========================================================================== */
+
+@media (max-width: 640px) {
+  :root {
+    --gap: 1.1rem;
+  }
   body {
-    display: block;
+    font-size: 16px;
   }
-
-  #top {
-    position: static;
+  main {
+    padding-top: 1.75rem;
   }
-  #menu {
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+  main h1 {
+    font-size: 2rem;
   }
-  #menu li {
-    float: none;
-  }
-
-  #h1 {
-    position: static;
-    margin: 0;
-    padding: 20px 15px;
-    text-align: center;
-  }
-  #h1 a {
-    width: 100%;
-    max-width: 480px;
-    height: 0;
-    padding-top: 16.26%;
-    margin: 0 auto;
-    background-size: contain;
-    background-position: center;
-  }
-
-  #page {
-    margin-top: 0;
-    background-image: none;
-  }
-
-  #main {
-    min-height: 0;
-  }
-
-  .album img {
-    width: 100%;
-    float: none;
-  }
-  .album .descr {
-    width: auto;
-    margin: 10px 0 0;
-    float: none;
-  }
-
-  #footer {
-    margin-top: 30px;
+  .album figure {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
   }
 }

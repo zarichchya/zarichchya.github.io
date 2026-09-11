@@ -1,24 +1,24 @@
 /**
  * Replaces the old `SELECT ... ORDER BY RAND() LIMIT 1` teaser on the home page
- * (Application_Model_ArticlesGeneral::getRandomArticle). Same markup, picked in
- * the browser so it still differs between visits on a static site.
+ * (Application_Model_ArticlesGeneral::getRandomArticle), picked in the browser
+ * so it still differs between visits on a static site. Renders the same
+ * title + summary markup as an entry in the /articles/ list.
  */
 (function () {
 	function render(container, article) {
-		var teaser = document.createElement('div');
-		teaser.id = 'text2';
+		var heading = document.createElement('h3');
+		var link = document.createElement('a');
+		link.href = article.url;
+		link.textContent = article.title;
+		heading.appendChild(link);
+		container.appendChild(heading);
 
-		var title = document.createElement('i');
-		title.textContent = article.title;
-		teaser.appendChild(title);
-		teaser.appendChild(document.createTextNode(' // ' + article.descr));
-
-		var more = document.createElement('a');
-		more.href = article.url;
-		more.textContent = '... далі';
-		teaser.appendChild(more);
-
-		container.appendChild(teaser);
+		if (article.descr) {
+			var summary = document.createElement('p');
+			summary.className = 'sum';
+			summary.textContent = article.descr;
+			container.appendChild(summary);
+		}
 	}
 
 	function init() {

@@ -1,15 +1,14 @@
-<div id="top" style="display:block">
-<ul id="menu">
+<header class="site">
+<div class="wrap header-row">
+<a class="brand" href="/" title="{{ site.title }}"><span class="brand-logo" role="img" aria-label="{{ site.title }}"></span></a>
+<nav>
 {%- for item in site.data.menu.top %}
+{%- comment -%} The brand already links home. {%- endcomment -%}
+{%- if item.url == "/" %}{% continue %}{% endif %}
 {%- assign is_current = false %}
-{%- if item.url == "/" %}
-{%- if page.url == "/" %}{%- assign is_current = true %}{%- endif %}
-{%- elsif page.url contains item.url %}
-{%- assign is_current = true %}
-{%- endif %}
-<li class="tooltip" title="{{ item.tooltip }}"><a href="{{ item.url }}" class="root{% if is_current %} current{% endif %}">{{ item.title }}</a></li>
+{%- if page.url contains item.url %}{% assign is_current = true %}{% endif %}
+<a href="{{ item.url }}" title="{{ item.tooltip }}"{% if is_current %} class="current"{% endif %}>{{ item.title }}</a>
 {%- endfor %}
-<li class="tooltip" title=""><a href="" class="root">&nbsp;</a></li>
-</ul>
-<div class="clear"></div>
+</nav>
 </div>
+</header>

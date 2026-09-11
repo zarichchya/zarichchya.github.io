@@ -2,24 +2,17 @@
 layout: default
 ---
 {%- include facebook-sdk.html %}
-<div id="main">
+<article class="prose">
 	<h1>{{ page.title }}</h1>
-	<div class="rozdil">
-		<div class="item">
-			<div class="text">
+	<p class="when"><time datetime="{{ page.date | date: '%Y-%m-%d' }}">{% include date-uk.html date=page.date %}</time> · <a href="/articles/">Статті</a></p>
+	{%- if page.description %}
+	<p class="lede">{{ page.description }}</p>
+	{%- endif %}
 {{ content }}
-			</div>
-		</div>
-		<h1>Куди далі?</h1>
+</article>
 
-		<div id="properties">
-		<a href="/articles/">Перейти в розділ "Статті"</a><br />
-		</div>
+<p class="back"><a href="/articles/">← Усі статті</a></p>
 
-		<div class="clear"></div>
-		<div class="fb-widget">
-		<div class="fb-comments" data-href="{{ page.url | absolute_url }}" data-width="auto" data-numposts="5"></div>
-		</div>
-		<div id="mc-container"></div>
-	</div>
+<div class="fb-widget">
+	<div class="fb-comments" data-href="{{ page.url | absolute_url }}" data-width="auto" data-numposts="5"></div>
 </div>

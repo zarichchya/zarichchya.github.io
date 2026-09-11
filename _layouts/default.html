@@ -5,19 +5,9 @@
 
 {%- include topmenu.html %}
 
-<div id="wrapper">
-<h1 id="h1">
-<a title="{{ site.title }}" class="tooltip" href="/">{{ site.title }}</a>
-</h1>
-<div id="page">
-<div id="content">
-
-	{{ content }}
-
-<div class="clear"></div>
-</div>
-</div>
-</div>
+<main class="wrap">
+{{ content }}
+</main>
 
 {%- include footer.html %}
 
