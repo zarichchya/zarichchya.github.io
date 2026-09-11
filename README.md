@@ -25,9 +25,9 @@ bundle exec jekyll serve
 
 ## Adding a new article
 
-Create one file in `_posts/`, named `YYYY-MM-DD-some-slug.md`. Markdown or HTML
-both work — the imported articles are `.html` only because they came out of the
-old WYSIWYG editor.
+Create one Markdown file in `_posts/`, named `YYYY-MM-DD-some-slug.md` — or
+use the CMS at `/admin/`, which writes the same file. Every article is
+Markdown.
 
 ```markdown
 ---
@@ -79,7 +79,7 @@ paired with that article:
 | --- | --- |
 | `/` | `index.html` |
 | `/articles/` | `articles/index.html` (flat list, newest first) |
-| `/articles/:article_id/` | `_posts/*.html` |
+| `/articles/:article_id/` | `_posts/*.md` |
 | `/articles/:category_id/` | `_plugins/legacy_category_redirects.rb` → redirects to `/articles/` |
 | `/articles/:category_id/:article_id/` | `_plugins/legacy_category_redirects.rb` → redirects to `/articles/:article_id/` |
 | `/about/` | `about.html` |

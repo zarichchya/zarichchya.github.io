@@ -10,23 +10,10 @@ public_folder: "/imgs"
 
 collections:
   - name: "posts_md"
-    label: "Posts (Markdown)"
+    label: "Posts"
     folder: "_posts"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    fields:
-      - { label: "Layout", name: "layout", widget: "hidden", default: "article" }
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Description", name: "description", widget: "text" }
-      - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
-      - { label: "Article ID", name: "article_id", widget: "number", value_type: "int" }
-      - { label: "Body", name: "body", widget: "markdown" }
-  - name: "posts_html"
-    label: "Posts (HTML)"
-    folder: "_posts"
-    extension: "html"
-    format: "yaml-frontmatter"
-    create: true
     fields:
       - { label: "Layout", name: "layout", widget: "hidden", default: "article" }
       - { label: "Title", name: "title", widget: "string" }
