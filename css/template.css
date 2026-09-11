@@ -316,9 +316,10 @@ h1 .n {
 #search-status {
   margin-bottom: 1.5rem;
 }
-/* Matched words: in search results, and on an article opened from one. */
+/* Matched words: in search results, and on an article opened from one. No
+   horizontal padding: a partial match ("Прут" in "Прутом") must sit flush
+   against the rest of its word. */
 mark {
-  padding: 0 0.1em;
   border-radius: 2px;
   background: var(--mark);
   color: inherit;
