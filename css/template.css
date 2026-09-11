@@ -362,27 +362,8 @@ footer.site {
   font-size: 0.85rem;
   text-align: center;
 }
-.foot-brand {
-  font-weight: 700;
-  text-decoration: none;
-}
-footer.site nav {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.25rem 1.2rem;
-  margin-top: 0.85rem;
-}
-footer.site nav a {
-  color: var(--muted);
-  text-decoration: none;
-}
-footer.site nav a:hover {
-  color: var(--fg);
-  text-decoration: underline;
-}
 .foot-note {
-  margin: 0.85rem 0 0;
+  margin: 0;
 }
 .foot-note a {
   color: var(--muted);

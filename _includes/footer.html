@@ -1,11 +1,5 @@
 <footer class="site">
 <div class="wrap">
-<a class="foot-brand" href="/">{{ site.title }}</a>
-<nav>
-{%- for item in site.data.menu.top %}
-<a href="{{ item.url }}">{{ item.title }}</a>
-{%- endfor %}
-</nav>
 <p class="foot-note">&copy; {{ site.since }}–{{ site.time | date: "%Y" }} · <a href="{{ site.author.url }}">{{ site.author.name }}</a></p>
 </div>
 </footer>
