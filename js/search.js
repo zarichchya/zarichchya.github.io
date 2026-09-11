@@ -19,6 +19,11 @@
 	var SNIPPET_BEFORE = 90;
 	var SNIPPET_AFTER = 210;
 
+	/* Pause after the last keystroke before searching. The whole index is a
+	 * few hundred KB held in memory, so a search takes a few milliseconds and
+	 * this only needs to skip the in-between states of fast typing. */
+	var TYPING_DELAY = 80;
+
 	/* Typographic apostrophes are folded to ASCII ' so either spelling matches
 	 * the other. Each is a single UTF-16 unit, so indices into the folded
 	 * string still line up with the original text. */
@@ -232,7 +237,7 @@
 		});
 		input.addEventListener('input', function () {
 			clearTimeout(timer);
-			timer = setTimeout(run, 250);
+			timer = setTimeout(run, TYPING_DELAY);
 		});
 		exactBox.addEventListener('change', function () {
 			clearTimeout(timer);
