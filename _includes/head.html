@@ -5,6 +5,7 @@
 	{%- comment -%} Zend's headTitle(): siteTitle + separator + page title {%- endcomment -%}
 	<title>{{ site.title }}{% if page.title %}{{ site.separator }}{{ page.title }}{% endif %}</title>
 	<meta name="description" content="{{ page.description | default: site.description | strip_html | normalize_whitespace | escape }}" />
+	{%- include theme.html %}
 	{%- comment -%} No web fonts: template.css uses a system serif stack, so
 	nothing is downloaded before text can render. Query-string cache-bust: without it, a returning visitor's
 	cached copy survives a CSS deploy until it separately expires. {%- endcomment -%}
