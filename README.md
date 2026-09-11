@@ -50,8 +50,9 @@ What each field is for:
 | `description` | The teaser under the title in `/articles/`, and the `<meta name="description">`. |
 | `date` | Also the sort key for `/articles/` (newest first). |
 
-Nothing else to update — `/articles/`, `feed.xml`, `sitemap.xml` and the random
-home-page teaser all pick the post up automatically. Commit and push to
+Nothing else to update — `/articles/`, `feed.xml`, `sitemap.xml`, the search
+index (`search.json`) and the random home-page teaser all pick the post up
+automatically. Commit and push to
 `main`; the workflow rebuilds and deploys.
 
 The top bar shown on every page is a site-wide menu, unrelated to individual
@@ -84,7 +85,8 @@ paired with that article:
 | `/about/` | `about.html` |
 | `/gallery/` | `gallery/index.html` |
 | `/gallery/13/` | `gallery/13/index.html` |
-| — | `feed.xml`, `sitemap.xml`, `articles.json` (new) |
+| `/search/` (new) | `search.html` + `js/search.js`, over `search.json` |
+| — | `feed.xml`, `sitemap.xml`, `articles.json`, `search.json` (new) |
 
 ## How the PHP mapped over
 

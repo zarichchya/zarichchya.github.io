@@ -12,6 +12,7 @@
   --rule: #e6e2da;
   --accent: #8a3222;
   --card: #f7f5f0;
+  --mark: #f5e2a0;
 
   --page: 60rem;
   --gap: 1.5rem;
@@ -34,6 +35,7 @@
   --rule: #35312c;
   --accent: #e08a72;
   --card: #25221f;
+  --mark: #6b5220;
 
   color-scheme: dark;
 }
@@ -160,7 +162,13 @@ header.site nav {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
-.theme-toggle svg {
+/* Icon-only nav links (search), sized and aligned like the theme switch. */
+header.site nav a.icon-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem;
+}
+header.site nav svg {
   fill: none;
   stroke: currentColor;
   stroke-width: 2;
@@ -253,6 +261,67 @@ h1 .n {
 .more {
   margin: 0;
   font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   Search (/search/, js/search.js)
+   ========================================================================== */
+
+.search-form {
+  margin: 0 0 1rem;
+}
+.search-row {
+  display: flex;
+  gap: 0.5rem;
+}
+.search-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.6rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.search-option input {
+  accent-color: var(--accent);
+}
+.search-option span {
+  color: var(--muted);
+}
+.search-row input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  background: var(--bg);
+  color: var(--fg);
+  font: inherit;
+  font-size: 1.05rem;
+}
+.search-row input:focus {
+  outline: 1px solid var(--accent);
+  border-color: var(--accent);
+}
+.search-form button {
+  padding: 0.55rem 1.1rem;
+  border: 1px solid var(--accent);
+  border-radius: 3px;
+  background: var(--accent);
+  color: var(--bg);
+  font: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+#search-status {
+  margin-bottom: 1.5rem;
+}
+/* Matched words: in search results, and on an article opened from one. */
+mark {
+  padding: 0 0.1em;
+  border-radius: 2px;
+  background: var(--mark);
+  color: inherit;
 }
 
 /* ==========================================================================
