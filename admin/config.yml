@@ -1,7 +1,7 @@
 backend:
   name: github
   repo: zarichchya/zarichchya.github.io
-  branch: main
+  branch: remove-categories
   base_url: https://decap-cms-oauth.mykola-klymyuk.workers.dev
   auth_endpoint: auth
 
