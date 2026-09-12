@@ -9,7 +9,7 @@ top:
   - title: "Статті"
     url: /articles/
     tooltip: "Переглянути всі статті"
-  - title: "Фотогалерея"
+  - title: "Фото"
     url: /gallery/
     tooltip: "Зарічанські світлини"
   - title: "Відео"
