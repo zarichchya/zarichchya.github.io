@@ -12,7 +12,6 @@ Jekyll renders posts before pages, so post.content is already HTML here.
 {%- capture post_date %}{% include date-uk.html date=post.date %}{% endcapture %}
   {
     "title": {{ post.title | jsonify }},
-    "descr": {{ post.description | jsonify }},
     "date": {{ post_date | strip | jsonify }},
     "url": {{ post.url | jsonify }},
     "text": {{ post.content | strip_html | normalize_whitespace | jsonify }}

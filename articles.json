@@ -5,9 +5,10 @@ sitemap: false
 ---
 [
 {%- for post in site.posts %}
+{%- capture summary %}{% include post-summary.html post=post %}{% endcapture %}
   {
     "title": {{ post.title | jsonify }},
-    "descr": {{ post.description | jsonify }},
+    "descr": {{ summary | jsonify }},
     "url": {{ post.url | jsonify }}
   }{% unless forloop.last %},{% endunless %}
 {%- endfor %}

@@ -102,7 +102,7 @@
 						article.text = new DOMParser()
 							.parseFromString(article.text || '', 'text/html')
 							.documentElement.textContent;
-						article.folded = fold([article.title, article.descr || '', article.text].join('\n'));
+						article.folded = fold([article.title, article.text].join('\n'));
 					});
 					return articles;
 				});

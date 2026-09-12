@@ -33,7 +33,6 @@ Markdown.
 ---
 layout: article
 title: "Назва статті"
-description: "Один рядок опису — показується у списку статей"
 date: 2026-08-02
 article_id: 66
 ---
@@ -47,7 +46,7 @@ What each field is for:
 | --- | --- |
 | `article_id` | Any unused number. `_plugins/permalinks.rb` derives the article's permalink from it (`/articles/<article_id>/`), and its mere presence is what makes the breadcrumb render the "Статті" crumb. |
 | `permalink` | Only set this to opt out with a free-form slug — omit it and it's auto-generated from `article_id` (see above). |
-| `description` | The teaser under the title in `/articles/`, and the `<meta name="description">`. |
+| first paragraph | There's no separate description field: the article's first paragraph (Jekyll's excerpt, via `_includes/post-summary.html`) is its summary in `/articles/`, the home-page teaser and the `<meta name="description">`. Open with a sentence that sums the article up. |
 | `date` | Also the sort key for `/articles/` (newest first). |
 
 Nothing else to update — `/articles/`, `feed.xml`, `sitemap.xml`, the search
