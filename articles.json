@@ -7,6 +7,7 @@ sitemap: false
 {%- for post in site.posts %}
 {%- capture summary %}{% include post-summary.html post=post %}{% endcapture %}
   {
+    "article_id": {{ post.article_id | jsonify }},
     "title": {{ post.title | jsonify }},
     "descr": {{ summary | jsonify }},
     "url": {{ post.url | jsonify }}

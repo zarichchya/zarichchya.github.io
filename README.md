@@ -44,7 +44,7 @@ What each field is for:
 
 | Field | Why it matters |
 | --- | --- |
-| `article_id` | Any unused number. `_plugins/permalinks.rb` derives the article's permalink from it (`/articles/<article_id>/`), and its mere presence is what makes the breadcrumb render the "Статті" crumb. |
+| `article_id` | Any unused number, never changed afterwards. The CMS has no field for it: it assigns the next free one when a new article is first saved (the highest in the published `/articles.json`, plus one). `_plugins/permalinks.rb` derives the article's permalink from it (`/articles/<article_id>/`), and fails the build if two posts share one. |
 | `permalink` | Only set this to opt out with a free-form slug — omit it and it's auto-generated from `article_id` (see above). |
 | first paragraph | There's no separate description field: the article's first paragraph (Jekyll's excerpt, via `_includes/post-summary.html`) is its summary in `/articles/`, the home-page teaser and the `<meta name="description">`. Open with a sentence that sums the article up. |
 | `date` | Also the sort key for `/articles/` (newest first). |

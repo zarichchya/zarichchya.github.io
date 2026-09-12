@@ -7,5 +7,42 @@
 </head>
 <body>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script>
+    /*
+     * Article IDs are never edited by hand, so config.yml has no Article ID
+     * field. When a new article is first saved, this fills in the next free
+     * one: the highest in the published /articles.json, plus one. Existing
+     * articles already carry article_id in their front matter, which Decap
+     * keeps on save even though no field shows it, so theirs never changes.
+     * If the lookup fails, the save fails too, rather than publishing an
+     * article with no ID.
+     *
+     * /articles.json reflects the last deploy, so two articles created
+     * before the site rebuilds would get the same ID; the build then stops
+     * with an error (_plugins/permalinks.rb) instead of one article's page
+     * replacing the other's.
+     */
+    CMS.registerEventListener({
+      name: 'preSave',
+      handler: function (event) {
+        var entry = event.entry;
+        var data = entry.get('data');
+        if (entry.get('collection') !== 'posts_md' || data.get('article_id')) return data;
+
+        return fetch('/articles.json', { cache: 'no-store' })
+          .then(function (response) {
+            if (!response.ok) throw new Error('HTTP ' + response.status);
+            return response.json();
+          })
+          .then(function (articles) {
+            var ids = articles
+              .map(function (article) { return Number(article.article_id); })
+              .filter(function (id) { return id > 0; });
+            if (!ids.length) throw new Error('no article ids in /articles.json');
+            return data.set('article_id', Math.max.apply(null, ids) + 1);
+          });
+      },
+    });
+  </script>
 </body>
 </html>

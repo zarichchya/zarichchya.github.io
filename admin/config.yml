@@ -18,5 +18,4 @@ collections:
       - { label: "Layout", name: "layout", widget: "hidden", default: "article" }
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
-      - { label: "Article ID", name: "article_id", widget: "number", value_type: "int" }
       - { label: "Body", name: "body", widget: "markdown" }
