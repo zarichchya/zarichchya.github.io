@@ -1,9 +1,20 @@
-<div id="top" style="display:block">
-<ul id="menu">
+<header class="site">
+<div class="wrap header-row">
+<a class="brand" href="/" title="{{ site.title }}"><span class="brand-logo" role="img" aria-label="{{ site.title }}"></span></a>
+<nav>
 {%- for item in site.data.menu.top %}
-<li class="tooltip" title="{{ item.tooltip }}"><a href="{{ item.url }}" class="root">{{ item.title }}</a></li>
+{%- comment -%} The brand already links home. {%- endcomment -%}
+{%- if item.url == "/" %}{% continue %}{% endif %}
+{%- assign is_current = false %}
+{%- if page.url contains item.url %}{% assign is_current = true %}{% endif %}
+<a href="{{ item.url }}" title="{{ item.tooltip }}"{% if is_current %} class="current"{% endif %}>{{ item.title }}</a>
 {%- endfor %}
-<li class="tooltip" title=""><a href="" class="root">&nbsp;</a></li>
-</ul>
-<div class="clear"></div>
+<a href="/search/" class="icon-link{% if page.url == '/search/' %} current{% endif %}" title="Пошук" aria-label="Пошук"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg></a>
+{%- comment -%} Stays hidden until _includes/theme.html wires it up, so it never shows as a dead control without JS. {%- endcomment %}
+<button type="button" id="theme-toggle" class="theme-toggle" aria-label="Темна тема" title="Світла / темна тема" hidden>
+<svg class="icon-moon" viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 1 1 9.5 3.5a6.5 6.5 0 0 0 11 11z"/></svg>
+<svg class="icon-sun" viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v2.5M12 20v2.5M1.5 12H4M20 12h2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/></svg>
+</button>
+</nav>
 </div>
+</header>

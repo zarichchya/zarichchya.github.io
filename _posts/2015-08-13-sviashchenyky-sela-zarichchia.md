@@ -1,13 +1,11 @@
 ---
 layout: article
 title: "Священики села Заріччя"
-description: "Інформація про священиків, які були парохами села Заріччя"
 date: 2015-08-13
 article_id: 53
-category_id: 10
-priority: 1
-sidebar: category
 ---
+
+Інформація про священиків, які були парохами села Заріччя
 
 **Священики села Заріччя**
 {: style="text-align: center;"}

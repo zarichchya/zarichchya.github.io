@@ -1,442 +1,409 @@
 /* ==========================================================================
-   Reset
+   Tokens
+   A quiet, editorial look: white page, one serif face, near-black text, a
+   muted grey for secondary text, hairline rules, and a single rust-red
+   accent for links and the brand. Everything below reads from these.
    ========================================================================== */
 
-html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form,
-fieldset, input, textarea, optgroup, button, p, blockquote, th, td {
-  margin: 0;
-  padding: 0;
+:root {
+  --bg: #ffffff;
+  --fg: #1f1d1a;
+  --muted: #6f6b64;
+  --rule: #e6e2da;
+  --accent: #8a3222;
+  --card: #f7f5f0;
+  --mark: #f5e2a0;
+
+  --page: 60rem;
+  --gap: 1.5rem;
+
+  --serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, "Times New Roman", serif;
+
+  color-scheme: light;
 }
-ul, li {
-  border: 0;
-  outline: 0;
-  vertical-align: baseline;
-  background: transparent;
-}
-h1, h2, h3, h4, h5, h6 {
-  font-size: 100%;
-  font-weight: normal;
-}
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-  padding: 5px;
-}
-ol, ul {
-  list-style: none;
-}
-fieldset, img {
-  border: 0;
-}
-input, textarea, select, optgroup, option, button {
-  font-family: inherit;
-  font-size: 100%;
-}
-button, input {
-  width: auto;
-  overflow: visible;
-}
-dl li {
-  list-style: none;
-}
-a, a:focus {
-  outline: none;
-  background: transparent;
-  text-decoration: none;
-  border: none;
+
+/* Dark theme: the same roles, re-tuned for a warm near-black page. The
+   accent is lifted to a lighter rust so links and the logo (masked in
+   var(--accent), see .brand-logo) keep their contrast. data-theme is always
+   set explicitly by _includes/theme.html -- from the visitor's saved choice,
+   or else their OS preference -- so no prefers-color-scheme block is needed
+   here. */
+:root[data-theme="dark"] {
+  --bg: #1b1917;
+  --fg: #e7e2d9;
+  --muted: #a19b91;
+  --rule: #35312c;
+  --accent: #e08a72;
+  --card: #25221f;
+  --mark: #6b5220;
+
+  color-scheme: dark;
 }
 
 /* ==========================================================================
-   Base / typography
+   Base
    ========================================================================== */
 
+*, *::before, *::after {
+  box-sizing: border-box;
+}
 html {
-  background: #E2D2C3 url(/img/bg/bg_tile.jpg) repeat center top;
+  -webkit-text-size-adjust: 100%;
 }
 body {
-  display: table;
-  width: 100%;
-  font-family: 'Open Sans', sans-serif;
-  background: url(/img/bg/bg.jpg) no-repeat center 33px;
-}
-p {
-  color: #000000;
-}
-p a, #properties a {
-  border-bottom: 1px dotted #b69f80;
-  color: #997757;
-}
-p a:hover, #properties a:hover {
-  border-bottom: 1px dotted #B5AC95;
-  color: #9f331a;
-}
-h1 a {
-  color: #A31311;
-}
-
-/* ==========================================================================
-   Page skeleton: header bar, logo, two-column body, footer
-   ========================================================================== */
-
-#top {
-  width: 100%;
-  height: 32px;
-  position: absolute;
-  top: 0px;
-  border-bottom: 2px solid #757C55;
-  background: #771A2D url(/img/bg/bg_red.jpg) repeat-x 0px -5px;
-}
-
-#menu {
-  width: 100%;
-  max-width: 950px;
-  height: 32px;
-  margin: 0 auto -20px;
-  display: block;
-  vertical-align: middle;
-  font-family: "Times New Roman", Times, serif;
-  font-size: 100%;
-}
-#menu ul {
   margin: 0;
-  padding: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.7;
 }
-#menu li {
-  float: left;
-}
-#menu a {
-  display: block;
-  text-align: center;
-}
-#menu li a.root {
-  padding: 7px 12px 7px;
-  color: #A3A471;
-}
-#menu a.root:hover {
-  color: #cbcd8e;
-}
-
-#wrapper {
-  width: 100%;
-  max-width: 963px;
-  margin: 0px auto;
-}
-
-/* #h1 is the site title, image-replaced with the site logo. Its anchor
-   contains the real site title text, pulled off-screen so the background
-   image shows instead -- see the responsive section for how this becomes
-   a normal-flow, fluid-width block below the 963px design width. */
-#h1 {
-  margin-left: 187px;
-  top: 133px;
-  text-indent: -9999px;
-  position: absolute;
-}
-#h1 a {
-  width: 615px;
-  height: 100px;
-  display: block;
-  background: url(/img/hutsul.png) no-repeat;
-}
-
-/* #page's top margin exists purely to clear the absolutely-positioned #top
-   and #h1 above it -- see the responsive section, where both switch to
-   normal flow and this margin is no longer needed. */
-#page {
-  margin: 205px 0 0 0;
-  padding: 10px 0 10px;
-  clear: both;
-  border: 1px solid #9F907A;
-  background: #E8D6BE url(/img/bg/bg.jpg) no-repeat center -175px;
-  border-radius: 3px;
-}
-#content {
-  margin: 0 0 20px 0;
-}
-#main {
-  width: 738px;
-  min-height: 310px;
-  margin: 10px 10px 0;
-  float: left;
-  border-right: 1px dotted #B5AC95;
-}
-#sidebar {
-  width: 200px;
-  margin: 24px 0 0;
-  float: right;
-}
-
-#footer {
-  margin-top: 120px;
-  padding: 10px 0 10px 0;
-  border-top: 2px solid #757C55;
-  background: #5D1322 url(/img/bg/bg_red.jpg) repeat-x 0px -43px;
-}
-#footer a {
-  color: #900;
-}
-#footer a:visited {
-  color: #ffd700;
-}
-#extend {
-  width: 100%;
-  max-width: 918px;
-  margin: 0px auto 0px;
-}
-
-.clear, .clear br {
-  clear: both;
-  display: block;
-  height: 0px;
-  width: 0px;
-}
-
-/* ==========================================================================
-   Breadcrumbs
-   ========================================================================== */
-
-ul.bread {
-  margin: 7px 10px 0 10px;
-  padding: 0 0 7px 0;
-  display: block;
-  border-bottom: 1px dotted #B5AC95;
-}
-ul.bread li {
-  display: inline;
-}
-ul.bread span {
-  font-size: 75%;
-}
-ul.bread a {
-  font-size: 75%;
-  color: #604A30;
-}
-ul.bread a:hover {
-  color: #592511;
-}
-
-/* ==========================================================================
-   Sidebar navigation (#sidebar > #right)
-   ========================================================================== */
-
-#right {
-  width: 180px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-size: 90%;
-}
-#right li a {
-  padding: 5px;
-  display: block;
-  color: #4f3c2b;
-  border-bottom: 1px dotted #B5AC95;
-}
-#right li div {
-  border-bottom: 1px dotted #B5AC95;
-}
-/* The category-menu heading (an <h5> holding either the category link or,
-   for the site-wide menu, a plain div) -- always inside a sidebar <li>. The
-   extra `li` (redundant given #right's only children are <li>s) keeps this
-   more specific than #right li a/div above, so it wins regardless of which
-   rule ends up first in the file. */
-#right li h5 a {
-  padding: 4px 0 5px 0;
-  font-size: 110%;
-  color: #900;
-}
-#right li h5 div {
-  padding: 4px 0 5px 0;
-  font-size: 110%;
-  color: #900;
-}
-/* The #right prefix isn't just scoping -- it's needed for specificity, to
-   outrank #right li a's color above. */
-#right a.right-menu {
-  padding: 5px 0 7px 0px;
-  color: #755538;
-}
-#right a.right-menu:hover {
-  color: #af7055;
-}
-
-/* ==========================================================================
-   Article / page content
-   ========================================================================== */
-
-.rozdil {
-  margin: 0 10px 0 0;
-}
-/* .item wraps an article; .article wraps a plain page (about, 404). Both
-   always contain a .text div holding the actual body content. */
-.item, .article {
-  border: 1px solid #B5A98E;
-  background: #CAC0A7;
-}
-.article .text {
-  margin: 5px 20px 0 20px;
-}
-.item .text {
-  margin: 5px 20px 0 20px;
-  clear: both;
-}
-
-.text {
-  text-align: justify;
-  font-size: 80%;
-}
-.text p {
-  margin: 0 0 10px 0;
-  font-size: 15px;
-  text-indent: 50px;
-}
-.text a {
-  border: none;
-}
-.text a:hover {
-  text-decoration: underline;
-}
-/* Old article bodies carry fixed pixel widths (WYSIWYG imports) that would
-   otherwise overflow a narrow viewport. */
-.text img {
+img {
   max-width: 100%;
   height: auto;
 }
-.text table {
+a {
+  color: var(--accent);
+  text-underline-offset: 0.15em;
+  text-decoration-thickness: 1px;
+}
+a:hover {
+  text-decoration-thickness: 2px;
+}
+h1, h2, h3 {
+  line-height: 1.25;
+}
+.clear {
+  clear: both;
+}
+
+.wrap {
+  max-width: var(--page);
+  margin: 0 auto;
+  padding: 0 var(--gap);
+}
+
+/* ==========================================================================
+   Site header: brand left, section links right, hairline underneath
+   ========================================================================== */
+
+header.site {
+  border-bottom: 1px solid var(--rule);
+}
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem var(--gap);
+  flex-wrap: wrap;
+  padding-top: 1.15rem;
+  padding-bottom: 1.15rem;
+}
+.brand {
+  display: block;
+  max-width: 100%;
+  text-decoration: none;
+}
+/* The site's original lettering (img/logo.png: hutsul.png cropped to its
+   opaque area) is gold, drawn for the old dark-red header bar and unreadable
+   on white. Used as a mask, only its shape is kept and it's painted in the
+   accent colour instead -- same letterforms, recoloured by CSS. */
+.brand-logo {
+  display: block;
+  width: 326px;
+  max-width: 100%;
+  aspect-ratio: 545/47;
+  background-color: var(--accent);
+  -webkit-mask: url(/img/logo.png) no-repeat center / contain;
+  mask: url(/img/logo.png) no-repeat center / contain;
+}
+header.site nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.4rem;
+}
+header.site nav a {
+  color: var(--muted);
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+header.site nav a:hover {
+  color: var(--fg);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+}
+header.site nav a.current {
+  color: var(--accent);
+  font-weight: 600;
+}
+header.site nav {
+  align-items: center;
+}
+
+/* Light/dark switch: shows a moon in the light theme (click for dark) and
+   a sun in the dark theme (click for light). */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem;
+  border: 0;
+  border-radius: 3px;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+}
+.theme-toggle[hidden] {
+  display: none;
+}
+.theme-toggle:hover {
+  color: var(--fg);
+}
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+/* Icon-only nav links (search), sized and aligned like the theme switch. */
+header.site nav a.icon-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem;
+}
+header.site nav svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.icon-sun,
+:root[data-theme="dark"] .icon-moon {
+  display: none;
+}
+:root[data-theme="dark"] .icon-sun {
+  display: block;
+}
+
+/* ==========================================================================
+   Page body
+   ========================================================================== */
+
+main {
+  padding-top: 2.5rem;
+  padding-bottom: 1rem;
+}
+
+main h1 {
+  margin: 0 0 0.5rem;
+  font-size: 2.7rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+/* Item count after a listing title, e.g. "Статті 15". */
+h1 .n {
+  color: var(--muted);
+  font-size: 0.42em;
+  font-weight: 400;
+  vertical-align: super;
+  margin-left: 0.15em;
+}
+/* Small grey line above or below a title: a date, a parent section link. */
+.when, .kicker {
+  margin: -0.2rem 0 0.9rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.kicker {
+  margin: 0 0 0.3rem;
+}
+.when a, .kicker a {
+  color: var(--muted);
+}
+.lede {
+  margin: 0 0 1.5rem;
+  color: var(--muted);
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+/* ==========================================================================
+   Listings (/articles/, /gallery/, the home page teaser)
+   A bold, small group heading (a date, or a label), then entries: a bold
+   underlined title link, an optional grey meta line, a plain summary.
+   ========================================================================== */
+
+.day {
+  margin: 0 0 2.2rem;
+}
+.dayh {
+  margin: 0 0 0.8rem;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.item + .item {
+  margin-top: 1.3rem;
+  padding-top: 1.3rem;
+  border-top: 1px solid var(--rule);
+}
+.item h3 {
+  margin: 0 0 0.3rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+.where {
+  margin: 0 0 0.35rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+.sum {
+  margin: 0;
+}
+.more {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   Search (/search/, js/search.js)
+   ========================================================================== */
+
+.search-form {
+  margin: 0 0 1rem;
+}
+.search-row {
+  display: flex;
+  gap: 0.5rem;
+}
+.search-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.6rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.search-option input {
+  accent-color: var(--accent);
+}
+.search-option span {
+  color: var(--muted);
+}
+.search-row input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  background: var(--bg);
+  color: var(--fg);
+  font: inherit;
+  font-size: 1.05rem;
+}
+.search-row input:focus {
+  outline: 1px solid var(--accent);
+  border-color: var(--accent);
+}
+.search-form button {
+  padding: 0.55rem 1.1rem;
+  border: 1px solid var(--accent);
+  border-radius: 3px;
+  background: var(--accent);
+  color: var(--bg);
+  font: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+#search-status {
+  margin-bottom: 1.5rem;
+}
+/* Matched words: in search results, and on an article opened from one. No
+   horizontal padding: a partial match ("Прут" in "Прутом") must sit flush
+   against the rest of its word. */
+mark {
+  border-radius: 2px;
+  background: var(--mark);
+  color: inherit;
+}
+
+/* ==========================================================================
+   Article / page prose
+   ========================================================================== */
+
+.prose p {
+  margin: 1rem 0;
+}
+.prose h2 {
+  margin: 2.2rem 0 0.6rem;
+  font-size: 1.35rem;
+}
+.prose h3 {
+  margin: 1.8rem 0 0.5rem;
+  font-size: 1.15rem;
+}
+.prose strong, .prose b {
+  font-weight: 600;
+}
+.prose ul, .prose ol {
+  padding-left: 1.4rem;
+}
+.prose blockquote {
+  margin: 1.5rem 0;
+  padding: 0 0 0 1.2rem;
+  border-left: 3px solid var(--rule);
+  color: var(--muted);
+}
+.prose hr {
+  margin: 2rem 0;
+  border: 0;
+  border-top: 1px solid var(--rule);
+}
+.prose img {
+  border-radius: 3px;
+}
+/* Legacy tables can be wider than the column; let them scroll instead of
+   stretching the page. */
+.prose table {
   display: block;
   max-width: 100%;
   overflow-x: auto;
+  margin: 1.5rem 0;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  line-height: 1.5;
 }
-.text table td {
-  padding: 5px;
+.prose th, .prose td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--rule);
+  text-align: left;
+  vertical-align: top;
 }
-.text iframe {
+.prose th {
+  border-bottom-color: var(--fg);
+  font-weight: 700;
+}
+.prose iframe {
   max-width: 100%;
   height: auto;
   aspect-ratio: 680/600;
+  border: 0;
+  border-radius: 3px;
 }
-
-/* A category's article list nested inside its sidebar/catalog entry. */
-li.second ul li div.text {
-  font-size: 120%;
-  text-indent: 10px;
-}
-
-#page h1 {
-  margin: 0 10px 0 0;
-  padding: 0 0 10px 0;
-  top: 0px;
-  position: relative;
-  font-size: 175%;
-  text-indent: 0;
-  color: #a31311;
-  border-bottom: 1px dotted #B5AC95;
-}
-#page h2 {
-  margin: 0 10px 0 10px;
-  top: 0px;
-  text-indent: 0;
-  text-align: center;
-  color: #900;
-}
-#page h2 a {
-  font-size: 110%;
-  color: #900;
-}
-#page h2 a:hover {
-  border-bottom: 1px dotted #B5AC95;
+.back {
+  margin: 2.5rem 0 0;
+  font-size: 0.95rem;
 }
 
 /* ==========================================================================
-   Category listing (/articles/, /articles/:id/, gallery index)
-   ========================================================================== */
-
-.catalog {
-  margin: 0 10px 0 0;
-  padding: 10px 0 0 0;
-}
-.catalog ul {
-  margin: 0 0 0 40px;
-  padding: 0 0 10px;
-  font-size: 90%;
-}
-.catalog ul li {
-  font-style: italic;
-  margin: 0 0 20px 0;
-  padding: 1px 10px;
-  display: block;
-  border-top: 1px solid #E6D7C2;
-  border-right: 1px solid #E6D7C2;
-  border-bottom: 1px solid #E6D7C2;
-  border-left: 10px solid #CBBD9E;
-  background: #dacbb5;
-}
-.catalog ul li:hover {
-  background: #D3C5AF;
-}
-.catalog ul li div {
-  padding: 5px;
-  margin: 0 0 20px 0;
-  border: none;
-  background: none;
-}
-.catalog ul a {
-  font-size: 130%;
-  border: none;
-  padding: 5px;
-  display: block;
-}
-.catalog ul a:hover {
-  border: none;
-}
-.catalog ul ul {
-  margin: -20px 10px -10px 20px;
-  padding: 0;
-  display: block;
-  border: none;
-}
-.catalog ul ul li {
-  font-style: normal;
-  font-weight: normal;
-  margin: 0;
-  display: block;
-  border: none;
-  background: none;
-}
-.catalog ul ul li:hover {
-  border: none;
-  background: none;
-}
-.catalog li.second, .catalog li.second:hover {
-  border: none;
-  background: none;
-}
-.catalog ul ul a {
-  font-size: 120%;
-}
-.catalog a {
-  padding: 1px;
-  font-size: 105%;
-  color: #604A30;
-}
-.catalog a:hover {
-  text-decoration: none;
-  color: #592511;
-}
-
-/* ==========================================================================
-   Homepage banner slideshow
+   Home page banner slideshow
    ========================================================================== */
 
 #banner {
-  width: calc(100% - 20px);
-  max-width: 920px;
   aspect-ratio: 920/330;
-  height: auto;
-  margin: auto;
+  margin: 0 0 2.5rem;
   position: relative;
-  border: 10px solid #CBC0A6;
-  background: url(/img/pre/pre-dark.gif) no-repeat center center;
+  overflow: hidden;
+  border-radius: 3px;
+  background: var(--card);
 }
 #slideshow {
   position: relative;
@@ -455,33 +422,30 @@ li.second ul li div.text {
   object-fit: cover;
 }
 
-/* Homepage teaser for a random article, filled in by js/random-article.js.
-   It's empty until that fetch resolves; reserving space for roughly the
-   longest current teaser (measured ~88px) avoids the page jumping when it
-   fills in -- a real, measured layout-shift source, not a guess. */
+/* Filled in by js/random-article.js after a fetch; reserving roughly one
+   teaser's height keeps the page from jumping when it arrives. */
 #randomArticle {
-  min-height: 90px;
-}
-#randomArticle #category {
-  font-weight: 900;
-}
-#randomArticle #text2 {
-  margin-left: 10px;
-}
-#randomArticle a {
-  color: #A31311;
-}
-#randomArticle div a:hover {
-  text-decoration: underline;
+  min-height: 5.5rem;
 }
 
-/* Facebook's SDK (loaded async, see _includes/facebook-sdk.html) replaces
-   .fb-page's fallback link and .fb-comments' empty div with an iframe once
-   it loads, well after first paint. Reserving roughly their settled height
-   avoids that swap shifting the rest of the page -- measured ~70px for the
-   compact .fb-page header (homepage); .fb-comments (every article) varies
-   with comment count, but most articles have few or none, so a smaller
-   floor still helps without overshooting for the common case. */
+/* ==========================================================================
+   Facebook widgets
+   The SDK (loaded async, see _includes/facebook-sdk.html) swaps these
+   placeholders for iframes well after first paint; the min-heights reserve
+   roughly their settled size so that swap doesn't shift the page. Any
+   spacing lives on the .fb-widget wrapper, not the .fb-* element itself:
+   Facebook measures that element and pins an inline pixel width on it, so
+   padding placed there would end up outside the measured box.
+   ========================================================================== */
+
+.fb-widget {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+}
+.fb-widget.centered {
+  text-align: center;
+}
 .fb-page {
   min-height: 70px;
 }
@@ -490,111 +454,69 @@ li.second ul li div.text {
 }
 
 /* ==========================================================================
-   Photo gallery album
+   Photo album
    ========================================================================== */
 
-.album {
-  margin-right: 35px;
-  padding-left: 25px;
+.album figure {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  gap: var(--gap);
+  align-items: start;
+  margin: 0;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--rule);
 }
-.album .row {
-  margin: 10px 0px 0px 0px;
+.album figure:first-child {
+  border-top: 0;
+  padding-top: 0.5rem;
 }
 .album img {
-  width: 40%;
-  height: auto;
-  border: 10px solid #CBC0A6;
-  float: left;
+  display: block;
+  width: 100%;
+  border-radius: 3px;
 }
-.album .descr {
-  margin: 0px 0px 0px 10px;
-  width: 350px;
-  float: left;
-}
-.album h2 {
-  text-align: left;
+.album figcaption {
+  font-size: 0.95rem;
 }
 
 /* ==========================================================================
-   Responsive
-   Everything above is untouched and still governs viewports at or above the
-   963px design width -- the site looks exactly as it always has there. Below
-   that, #top and #h1 (both position:absolute in the desktop rules, stacked
-   over the hero photo by hand-tuned pixel offsets) switch to normal flow and
-   the two-column #main/#sidebar layout stacks into one column.
+   Site footer
    ========================================================================== */
 
-@media (max-width: 963px) {
-  /* body is display:table above this breakpoint (unclear why -- no vertical-align
-     depends on it) via automatic table layout, an over-wide descendant (e.g. a
-     legacy content table) can force the whole table -- and everything in it --
-     wider than the viewport regardless of width:100%. Switch out of table layout
-     here so nothing can do that. */
+footer.site {
+  margin-top: 2.5rem;
+  padding: 2rem 0 3rem;
+  border-top: 1px solid var(--rule);
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-align: center;
+}
+.foot-note {
+  margin: 0;
+}
+.foot-note a {
+  color: var(--muted);
+}
+
+/* ==========================================================================
+   Narrow screens
+   ========================================================================== */
+
+@media (max-width: 640px) {
+  :root {
+    --gap: 1.1rem;
+  }
   body {
-    display: block;
+    font-size: 16px;
   }
-
-  #top {
-    position: static;
+  main {
+    padding-top: 1.75rem;
   }
-  #menu {
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+  main h1 {
+    font-size: 2rem;
   }
-  #menu li {
-    float: none;
-  }
-
-  #h1 {
-    position: static;
-    margin: 0;
-    padding: 20px 15px;
-    text-align: center;
-  }
-  #h1 a {
-    width: 100%;
-    max-width: 480px;
-    height: 0;
-    padding-top: 16.26%;
-    margin: 0 auto;
-    background-size: contain;
-    background-position: center;
-  }
-
-  #page {
-    margin-top: 0;
-    background-image: none;
-  }
-
-  #main {
-    width: auto;
-    min-height: 0;
-    float: none;
-    border-right: none;
-    margin: 10px;
-  }
-  #sidebar {
-    width: auto;
-    float: none;
-    margin: 20px 10px 0;
-  }
-  #right {
-    width: auto;
-  }
-
-  .album img {
-    width: 100%;
-    float: none;
-  }
-  .album .descr {
-    width: auto;
-    margin: 10px 0 0;
-    float: none;
-  }
-
-  #footer {
-    margin-top: 30px;
+  .album figure {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
   }
 }

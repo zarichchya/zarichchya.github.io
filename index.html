@@ -49,38 +49,29 @@ here rather than hardcoded in template.css.
 </style>
 {%- endif %}
 
-<div id="main">
-
-	<br/> <div class="clear"></div>
-
-	<h1>Статті</h1>
-
+<section class="day">
+	<h2 class="dayh">Випадкова стаття</h2>
 	{%- comment -%}
 	Was a `ORDER BY RAND() LIMIT 1` query. On a static site the pick happens in
 	the browser, from /articles.json, so it still changes on every visit.
 	{%- endcomment -%}
-	<div id="randomArticle" data-articles="/articles.json"></div>
+	<div id="randomArticle" class="item" data-articles="/articles.json"></div>
+	<p class="more"><a href="/articles/">Усі статті →</a></p>
+</section>
 
-	<div class="clear"></div>
-
-	<div style="margin: 10px 10px 10px 0px;">
-
-		<div style="max-width:729px; color: red; margin:0px auto; text-align:center">
-			<div class="fb-page"
-				 data-href="{{ site.facebook.page }}"
-				 data-small-header="true"
-				 data-width="500"
-				 data-adapt-container-width="true"
-				 data-hide-cover="false"
-				 data-show-facepile="true"
-				 data-show-posts="false">
-				<div class="fb-xfbml-parse-ignore">
-					<blockquote cite="{{ site.facebook.page }}"><a href="{{ site.facebook.page }}">{{ site.title }}</a></blockquote>
-				</div>
-			</div>
-
-			{%- include facebook-sdk.html %}
+<div class="fb-widget centered">
+	<div class="fb-page"
+		 data-href="{{ site.facebook.page }}"
+		 data-small-header="true"
+		 data-width="500"
+		 data-adapt-container-width="true"
+		 data-hide-cover="false"
+		 data-show-facepile="true"
+		 data-show-posts="false">
+		<div class="fb-xfbml-parse-ignore">
+			<blockquote cite="{{ site.facebook.page }}"><a href="{{ site.facebook.page }}">{{ site.title }}</a></blockquote>
 		</div>
-
 	</div>
+
+	{%- include facebook-sdk.html %}
 </div>

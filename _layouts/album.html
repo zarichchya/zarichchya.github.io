@@ -23,19 +23,14 @@ Shadowbox.init({
 });
 </script>
 
-<div id="main">
-	<h1><a href="/gallery/">Фотогалерея</a> / {{ album.name }}</h1>
+<p class="kicker"><a href="/gallery/">Фото</a></p>
+<h1>{{ album.name }} <span class="n">{{ album.photos | size }}</span></h1>
 
-	<div class="album">
-	{%- for photo in album.photos %}
-		<div class="row">
-
-		<div class="photo"><a rel="shadowbox;player=img" href="{{ photo.full }}"><img alt="{{ photo.descr | split: ';' | first | strip }}" class="border" src="{{ photo.thumb }}"></a></div>
-
-		<div class="descr">{{ photo.descr }}</div>
-		</div>
-
-		<div class="clear"></div>
-	{%- endfor %}
-	</div>
+<div class="album">
+{%- for photo in album.photos %}
+	<figure>
+		<a rel="shadowbox;player=img" href="{{ photo.full }}"><img alt="{{ photo.descr | split: ';' | first | strip }}" src="{{ photo.thumb }}"></a>
+		<figcaption>{{ photo.descr }}</figcaption>
+	</figure>
+{%- endfor %}
 </div>

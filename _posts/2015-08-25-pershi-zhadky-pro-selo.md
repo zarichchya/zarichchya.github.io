@@ -1,13 +1,11 @@
 ---
 layout: article
 title: "Перші згадки про село"
-description: "Згадки про Заріччя в історичних документах"
 date: 2015-08-25
 article_id: 52
-category_id: 9
-priority: 1
-sidebar: category
 ---
+
+Згадки про Заріччя в історичних документах
 
 Хронологія
 {: style="text-align: center;"}

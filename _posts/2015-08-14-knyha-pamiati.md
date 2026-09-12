@@ -1,13 +1,11 @@
 ---
 layout: article
 title: "Книга пам'яті"
-description: "Список зарічанців, які загинули на фронтах другої світової війни"
 date: 2015-08-14
 article_id: 61
-category_id: 12
-priority: 1
-sidebar: category
 ---
+
+Список зарічанців, які загинули на фронтах другої світової війни
 
 **КНИГА ПАМ’ЯТІ УКРАЇНИ**
 {: style="text-align: center;"}

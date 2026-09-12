@@ -1,13 +1,11 @@
 ---
 layout: article
 title: "Надвірнянщина: хресна дорога народного болю. Упоряд. О. Зварчук"
-description: "Витяг з книги, присвячений зарічанцям"
 date: 2015-08-19
 article_id: 59
-category_id: 7
-priority: 8
-sidebar: category
 ---
+
+Витяг з книги, присвячений зарічанцям
 
 **ЗАРІЧЧЯ**
 {: style="text-align: center;"}
