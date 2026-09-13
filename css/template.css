@@ -394,7 +394,7 @@ mark {
 }
 
 /* ==========================================================================
-   Home page banner slideshow
+   Photo slideshow (/gallery/)
    ========================================================================== */
 
 #banner {
@@ -411,7 +411,7 @@ mark {
   height: 100%;
 }
 /* The crossfade animation itself (opacity keyframes + per-image delay) is
-   generated in index.html, since it depends on how many photos are in
+   generated in gallery/index.html, since it depends on how many photos are in
    slider/ -- this just positions every image in the same spot, stacked. */
 #slideshow img {
   position: absolute;

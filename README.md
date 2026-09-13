@@ -99,7 +99,7 @@ paired with that article:
 | `Model_Breadcrumbs` | dropped — see below |
 | `Model_Menu::CategoryMenu` | dropped — categories removed, see below |
 | `DbTable_Menu::getGeneralMenuItems` | `_data/menu.yml` (`_includes/topmenu.html`) |
-| `Model_Photos::FirstPageImageSlider` | `site.static_files` loop in `index.html` |
+| `Model_Photos::FirstPageImageSlider` | `site.static_files` loop in `gallery/index.html` (moved off the home page) |
 | `Model_ArticlesGeneral::getRandomArticle` | `articles.json` + `js/random-article.js` |
 | `settings` table | `_config.yml` |
 | `AdminController` / TinyMCE CMS | dropped — edit files and rebuild |
