@@ -3,11 +3,9 @@
 # `_includes/topmenu.html`) is now the site's only nav.
 
 top:
-  - title: "Головна"
-    url: /
-    tooltip: "Вернутись на головну"
+  # The home page is the article list, so this is also the home link.
   - title: "Статті"
-    url: /articles/
+    url: /
     tooltip: "Переглянути всі статті"
   - title: "Фото"
     url: /gallery/

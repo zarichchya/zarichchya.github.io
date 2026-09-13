@@ -31,7 +31,8 @@ module Zarichchya
 
     def generate(site)
       LEGACY_CATEGORY_IDS.each do |category_id|
-        site.pages << RedirectPage.new(site, "articles/#{category_id}", "/articles/")
+        # The article list is the home page now.
+        site.pages << RedirectPage.new(site, "articles/#{category_id}", "/")
 
         site.posts.docs.each do |post|
           site.pages << RedirectPage.new(site, "articles/#{category_id}/#{post.data['article_id']}", post.url)

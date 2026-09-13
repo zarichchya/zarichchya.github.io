@@ -1,34 +1,32 @@
 ---
 layout: default
-title: "Головна"
+title: "Статті"
 permalink: /
-scripts:
-  - /js/random-article.js
+description: "Всі статті про село Заріччя над Прутом."
 ---
-{%- comment -%} Ported from application/views/scripts/index/index.phtml. The photo slideshow that used to open this page now lives on /gallery/. {%- endcomment %}
+{%- comment -%}
+The home page is the article list: newest first, grouped under a date
+heading. Every imported post has its own date, but grouping keeps two posts
+published the same day under one heading. /articles/ redirects here
+(articles/index.html), so the old list URL keeps working.
+{%- endcomment -%}
+{%- assign posts = site.posts | sort: "date" | reverse %}
+{%- assign days = posts | group_by_exp: "post", "post.date | date: '%Y-%m-%d'" %}
+<h1>Статті <span class="n">{{ posts.size }}</span></h1>
+<p class="lede">{{ page.description }}</p>
+
+{%- for day in days %}
+{%- assign first = day.items | first %}
 <section class="day">
-	<h2 class="dayh">Випадкова стаття</h2>
-	{%- comment -%}
-	Was a `ORDER BY RAND() LIMIT 1` query. On a static site the pick happens in
-	the browser, from /articles.json, so it still changes on every visit.
-	{%- endcomment -%}
-	<div id="randomArticle" class="item" data-articles="/articles.json"></div>
-	<p class="more"><a href="/articles/">Усі статті →</a></p>
+	<h2 class="dayh"><time datetime="{{ day.name }}">{% include date-uk.html date=first.date %}</time></h2>
+	{%- for post in day.items %}
+	<article class="item">
+		<h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+		{%- capture summary %}{% include post-summary.html post=post %}{% endcapture %}
+		{%- if summary != "" %}
+		<p class="sum">{{ summary }}</p>
+		{%- endif %}
+	</article>
+	{%- endfor %}
 </section>
-
-<div class="fb-widget centered">
-	<div class="fb-page"
-		 data-href="{{ site.facebook.page }}"
-		 data-small-header="true"
-		 data-width="500"
-		 data-adapt-container-width="true"
-		 data-hide-cover="false"
-		 data-show-facepile="true"
-		 data-show-posts="false">
-		<div class="fb-xfbml-parse-ignore">
-			<blockquote cite="{{ site.facebook.page }}"><a href="{{ site.facebook.page }}">{{ site.title }}</a></blockquote>
-		</div>
-	</div>
-
-	{%- include facebook-sdk.html %}
-</div>
+{%- endfor %}

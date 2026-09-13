@@ -46,11 +46,11 @@ What each field is for:
 | --- | --- |
 | `article_id` | Any unused number, never changed afterwards. The CMS has no field for it: it assigns the next free one when a new article is first saved (the highest in the published `/articles.json`, plus one). `_plugins/permalinks.rb` derives the article's permalink from it (`/articles/<article_id>/`), and fails the build if two posts share one. |
 | `permalink` | Only set this to opt out with a free-form slug — omit it and it's auto-generated from `article_id` (see above). |
-| first paragraph | There's no separate description field: the article's first paragraph (Jekyll's excerpt, via `_includes/post-summary.html`) is its summary in `/articles/`, the home-page teaser and the `<meta name="description">`. Open with a sentence that sums the article up. |
-| `date` | Also the sort key for `/articles/` (newest first). |
+| first paragraph | There's no separate description field: the article's first paragraph (Jekyll's excerpt, via `_includes/post-summary.html`) is its summary in the home-page article list and the `<meta name="description">`. Open with a sentence that sums the article up. |
+| `date` | Also the sort key for the home-page article list (newest first). |
 
-Nothing else to update — `/articles/`, `feed.xml`, `sitemap.xml`, the search
-index (`search.json`) and the random home-page teaser all pick the post up
+Nothing else to update — the home-page article list, `feed.xml`,
+`sitemap.xml` and the search index (`search.json`) all pick the post up
 automatically. Commit and push to
 `main`; the workflow rebuilds and deploys.
 
@@ -76,10 +76,10 @@ paired with that article:
 
 | Legacy route | Jekyll source |
 | --- | --- |
-| `/` | `index.html` |
-| `/articles/` | `articles/index.html` (flat list, newest first) |
+| `/` | `index.html` — the article list (flat, newest first) |
+| `/articles/` | `articles/index.html` → redirects to `/` |
 | `/articles/:article_id/` | `_posts/*.md` |
-| `/articles/:category_id/` | `_plugins/legacy_category_redirects.rb` → redirects to `/articles/` |
+| `/articles/:category_id/` | `_plugins/legacy_category_redirects.rb` → redirects to `/` |
 | `/articles/:category_id/:article_id/` | `_plugins/legacy_category_redirects.rb` → redirects to `/articles/:article_id/` |
 | `/about/` | `about.html` |
 | `/gallery/` | `gallery/index.html` |
@@ -100,7 +100,7 @@ paired with that article:
 | `Model_Menu::CategoryMenu` | dropped — categories removed, see below |
 | `DbTable_Menu::getGeneralMenuItems` | `_data/menu.yml` (`_includes/topmenu.html`) |
 | `Model_Photos::FirstPageImageSlider` | `site.static_files` loop in `gallery/index.html` (moved off the home page) |
-| `Model_ArticlesGeneral::getRandomArticle` | `articles.json` + `js/random-article.js` |
+| `Model_ArticlesGeneral::getRandomArticle` | dropped — the home page is the article list now |
 | `settings` table | `_config.yml` |
 | `AdminController` / TinyMCE CMS | dropped — edit files and rebuild |
 
@@ -108,12 +108,12 @@ paired with that article:
 
 - **The imported posts' dates are synthetic.** The `articles` table had no
   timestamps, so the import dated them backwards from 2015-08-25 (the day the
-  dump was taken) in the order the PHP app displayed them. `/articles/` now
-  sorts on this same date, newest first.
+  dump was taken) in the order the PHP app displayed them. The home-page
+  article list sorts on this same date, newest first.
 - **Categories were removed in 2026.** The site used to group articles under
   categories (`_data/categories.yml`, `_layouts/category.html`,
   `_plugins/category_pages.rb`, a `category_id` on every post, a category
-  sidebar mode); `/articles/` is now a single flat, newest-first list, and no
+  sidebar mode); the home page is now a single flat, newest-first list, and no
   post front matter mentions categories anymore. Pre-2026 category-based URLs
   still redirect instead of 404ing — see `_plugins/legacy_category_redirects.rb`
   and the URLs table above.
@@ -125,8 +125,10 @@ paired with that article:
   section (a `.current` class on the matching link, computed from `page.url`
   in `_includes/topmenu.html`) instead of a breadcrumb trail saying where you
   are.
-- **The random home-page teaser now runs client-side** (`ORDER BY RAND()` has no
-  static equivalent), so it still changes between visits.
+- **The home page is the article list since 2026.** It used to show a
+  photo slideshow (now on `/gallery/`), a random-article teaser (dropped) and
+  a Facebook page box (dropped; the footer links the Facebook page instead).
+  `/articles/` redirects to `/`, so the old list URL still works.
 - Article #65 (`[заголовок1]`, `category_id` 999) was the CMS's "new article"
   placeholder and is not imported — the PHP app filtered it out of every query.
 - Google Analytics only renders in `JEKYLL_ENV=production`.

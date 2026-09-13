@@ -5,11 +5,11 @@ layout: default
 {%- comment -%} data-highlight: js/search.js marks the words from ?q= here when the reader arrives from a search result. {%- endcomment %}
 <article class="prose" data-highlight>
 	<h1>{{ page.title }}</h1>
-	<p class="when"><time datetime="{{ page.date | date: '%Y-%m-%d' }}">{% include date-uk.html date=page.date %}</time> · <a href="/articles/">Статті</a></p>
+	<p class="when"><time datetime="{{ page.date | date: '%Y-%m-%d' }}">{% include date-uk.html date=page.date %}</time> · <a href="/">Статті</a></p>
 {{ content }}
 </article>
 
-<p class="back"><a href="/articles/">← Усі статті</a></p>
+<p class="back"><a href="/">← Усі статті</a></p>
 
 <div class="fb-widget">
 	<div class="fb-comments" data-href="{{ page.url | absolute_url }}" data-width="auto" data-numposts="5"></div>

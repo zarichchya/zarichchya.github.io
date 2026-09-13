@@ -227,7 +227,7 @@ h1 .n {
 }
 
 /* ==========================================================================
-   Listings (/articles/, /gallery/, the home page teaser)
+   Listings (the home page article list, /gallery/, search results)
    A bold, small group heading (a date, or a label), then entries: a bold
    underlined title link, an optional grey meta line, a plain summary.
    ========================================================================== */
@@ -258,11 +258,6 @@ h1 .n {
 .sum {
   margin: 0;
 }
-.more {
-  margin: 0;
-  font-size: 0.95rem;
-}
-
 /* ==========================================================================
    Search (/search/, js/search.js)
    ========================================================================== */
@@ -422,32 +417,21 @@ mark {
   object-fit: cover;
 }
 
-/* Filled in by js/random-article.js after a fetch; reserving roughly one
-   teaser's height keeps the page from jumping when it arrives. */
-#randomArticle {
-  min-height: 5.5rem;
-}
 
 /* ==========================================================================
-   Facebook widgets
-   The SDK (loaded async, see _includes/facebook-sdk.html) swaps these
-   placeholders for iframes well after first paint; the min-heights reserve
-   roughly their settled size so that swap doesn't shift the page. Any
-   spacing lives on the .fb-widget wrapper, not the .fb-* element itself:
-   Facebook measures that element and pins an inline pixel width on it, so
-   padding placed there would end up outside the measured box.
+   Facebook comments (under every article)
+   The SDK (loaded async, see _includes/facebook-sdk.html) swaps the
+   placeholder for an iframe well after first paint; the min-height reserves
+   roughly its settled size so that swap doesn't shift the page. Any spacing
+   lives on the .fb-widget wrapper, not .fb-comments itself: Facebook
+   measures that element and pins an inline pixel width on it, so padding
+   placed there would end up outside the measured box.
    ========================================================================== */
 
 .fb-widget {
   margin-top: 2.5rem;
   padding-top: 1.5rem;
   border-top: 1px solid var(--rule);
-}
-.fb-widget.centered {
-  text-align: center;
-}
-.fb-page {
-  min-height: 70px;
 }
 .fb-comments {
   min-height: 60px;
@@ -496,6 +480,26 @@ footer.site {
 }
 .foot-note a {
   color: var(--muted);
+}
+/* Facebook page link: a small round "f" icon before the page name. The
+   disc takes the link colour and the "f" is cut out in the page colour, so
+   it follows the theme and the hover colour like the text next to it. */
+.fb-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  vertical-align: bottom;
+}
+.fb-link svg {
+  width: 1.15em;
+  height: 1.15em;
+  flex: none;
+}
+.fb-link .fb-disc {
+  fill: currentColor;
+}
+.fb-link .fb-f {
+  fill: var(--bg);
 }
 
 /* ==========================================================================
