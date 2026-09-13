@@ -1,7 +1,7 @@
 backend:
   name: github
   repo: zarichchya/zarichchya.github.io
-  branch: main
+  branch: remove-categories
   base_url: https://decap-cms-oauth.mykola-klymyuk.workers.dev
   auth_endpoint: auth
 
@@ -10,35 +10,12 @@ public_folder: "/imgs"
 
 collections:
   - name: "posts_md"
-    label: "Posts (Markdown)"
+    label: "Posts"
     folder: "_posts"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
       - { label: "Layout", name: "layout", widget: "hidden", default: "article" }
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "Description", name: "description", widget: "text" }
       - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
-      - { label: "Permalink", name: "permalink", widget: "string", required: false, hint: "Leave blank to auto-generate /articles/<category id>/<article id>/" }
-      - { label: "Article ID", name: "article_id", widget: "number", value_type: "int" }
-      - { label: "Category ID", name: "category_id", widget: "number", value_type: "int" }
-      - { label: "Priority", name: "priority", widget: "number", value_type: "int", default: 5 }
-      - { label: "Sidebar", name: "sidebar", widget: "hidden", default: "category" }
-      - { label: "Body", name: "body", widget: "markdown" }
-  - name: "posts_html"
-    label: "Posts (HTML)"
-    folder: "_posts"
-    extension: "html"
-    format: "yaml-frontmatter"
-    create: true
-    fields:
-      - { label: "Layout", name: "layout", widget: "hidden", default: "article" }
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Description", name: "description", widget: "text" }
-      - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
-      - { label: "Permalink", name: "permalink", widget: "string", required: false, hint: "Leave blank to auto-generate /articles/<category id>/<article id>/" }
-      - { label: "Article ID", name: "article_id", widget: "number", value_type: "int" }
-      - { label: "Category ID", name: "category_id", widget: "number", value_type: "int" }
-      - { label: "Priority", name: "priority", widget: "number", value_type: "int", default: 5 }
-      - { label: "Sidebar", name: "sidebar", widget: "hidden", default: "category" }
       - { label: "Body", name: "body", widget: "markdown" }

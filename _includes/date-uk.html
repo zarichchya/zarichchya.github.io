@@ -1,0 +1,7 @@
+{%- comment -%}
+Ukrainian long date, e.g. "25 серпня 2015". Usage:
+  {% include date-uk.html date=post.date %}
+{%- endcomment -%}
+{%- assign _months = "січня,лютого,березня,квітня,травня,червня,липня,серпня,вересня,жовтня,листопада,грудня" | split: "," -%}
+{%- assign _m = include.date | date: "%-m" | minus: 1 -%}
+{{- include.date | date: "%-d" }} {{ _months[_m] }} {{ include.date | date: "%Y" -}}

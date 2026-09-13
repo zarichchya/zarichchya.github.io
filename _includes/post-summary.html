@@ -1,0 +1,6 @@
+{%- comment -%}
+A post's summary as plain text: its first paragraph (Jekyll's excerpt),
+shortened to fit a list row or a <meta name="description">. Usage:
+  {% include post-summary.html post=post %}
+{%- endcomment -%}
+{{- include.post.excerpt | strip_html | normalize_whitespace | truncate: 220, "…" -}}

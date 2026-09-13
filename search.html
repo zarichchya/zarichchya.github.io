@@ -1,0 +1,21 @@
+---
+layout: default
+title: "Пошук"
+permalink: /search/
+description: "Пошук слів у статтях про село Заріччя над Прутом."
+scripts:
+  - /js/search.js
+---
+<h1>Пошук</h1>
+<p class="lede">Шукає слова у статтях, великі й малі літери не розрізняються. Якщо ввести кілька слів, знайдуться статті, де є кожне з них.</p>
+
+<form id="search-form" class="search-form" action="/search/" method="get" role="search">
+	<div class="search-row">
+		<input id="search-input" type="search" name="q" placeholder="Наприклад: Прут" aria-label="Слова для пошуку" autocomplete="off" autofocus>
+		<button type="submit">Шукати</button>
+	</div>
+	<label class="search-option"><input id="search-exact" type="checkbox" name="exact" value="1"> Лише цілі слова <span>(«прут» не знайде «Прутом»)</span></label>
+</form>
+
+<p id="search-status" class="where" aria-live="polite"></p>
+<div id="search-results" data-index="/search.json"></div>

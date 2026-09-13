@@ -1,0 +1,45 @@
+{%- comment -%}
+Light/dark theme. Runs inline in <head>, before the body renders, so a page
+never flashes the wrong theme. A choice made with the top-bar toggle
+(#theme-toggle in _includes/topmenu.html) is remembered in localStorage;
+until the visitor makes one, the theme follows the OS setting and keeps
+following it if that changes. template.css keys the palette off the
+data-theme attribute this sets on <html>.
+{%- endcomment -%}
+<script>
+(function () {
+	var KEY = 'theme';
+	var root = document.documentElement;
+	var media = window.matchMedia('(prefers-color-scheme: dark)');
+
+	function stored() {
+		try { return localStorage.getItem(KEY); } catch (e) { return null; }
+	}
+
+	function apply(theme) {
+		root.setAttribute('data-theme', theme);
+		var button = document.getElementById('theme-toggle');
+		if (button) button.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+	}
+
+	apply(stored() || (media.matches ? 'dark' : 'light'));
+
+	if (media.addEventListener) {
+		media.addEventListener('change', function (e) {
+			if (!stored()) apply(e.matches ? 'dark' : 'light');
+		});
+	}
+
+	document.addEventListener('DOMContentLoaded', function () {
+		var button = document.getElementById('theme-toggle');
+		if (!button) return;
+		button.hidden = false;
+		apply(root.getAttribute('data-theme'));
+		button.addEventListener('click', function () {
+			var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+			apply(next);
+			try { localStorage.setItem(KEY, next); } catch (e) {}
+		});
+	});
+})();
+</script>

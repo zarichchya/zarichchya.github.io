@@ -1,6 +1,5 @@
-<div id="footer">
-<div id="extend">
-<div style="color:#ffffff; text-align:center;">&copy; {{ site.since }} - {{ site.time | date: "%Y" }}. <a href="{{ site.author.url }}">{{ site.author.name }}</a></div>
+<footer class="site">
+<div class="wrap">
+<p class="foot-note">&copy; {{ site.since }}–{{ site.time | date: "%Y" }} · <a class="fb-link" href="{{ site.author.url }}" target="_blank" rel="noopener" title="Сторінка автора у Facebook">{% include fb-icon.html %}{{ site.author.name }}</a> · <a class="fb-link" href="{{ site.facebook.page }}" target="_blank" rel="noopener" title="Наша сторінка у Facebook">{% include fb-icon.html %}{{ site.title }}</a></p>
 </div>
-<div class="clear"><br /></div>
-</div>
+</footer>

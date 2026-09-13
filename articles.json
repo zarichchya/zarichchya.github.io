@@ -3,15 +3,16 @@ layout: null
 permalink: /articles.json
 sitemap: false
 ---
+{%- comment -%}
+Read by the CMS (admin/index.html) to pick the next free article_id for a
+new article.
+{%- endcomment -%}
 [
 {%- for post in site.posts %}
-  {%- assign category = site.data.categories | where: "id", post.category_id | first %}
   {
+    "article_id": {{ post.article_id | jsonify }},
     "title": {{ post.title | jsonify }},
-    "descr": {{ post.description | jsonify }},
-    "url": {{ post.url | jsonify }},
-    "category": {{ category.name | jsonify }},
-    "category_url": {{ category.url | jsonify }}
+    "url": {{ post.url | jsonify }}
   }{% unless forloop.last %},{% endunless %}
 {%- endfor %}
 ]

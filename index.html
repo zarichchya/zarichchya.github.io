@@ -1,86 +1,32 @@
 ---
 layout: default
-title: "Головна"
+title: "Статті"
 permalink: /
-scripts:
-  - /js/random-article.js
+description: "Всі статті про село Заріччя над Прутом."
 ---
 {%- comment -%}
-Ported from application/views/scripts/index/index.phtml.
-The slideshow used to be built by scanning public/slider/ in PHP
-(Application_Model_Photos::FirstPageImageSlider); Jekyll enumerates the same
-directory at build time instead.
-
-The crossfade itself is pure CSS: every image shares one @keyframes loop the
-length of a full rotation (slide_count * slide_seconds), each offset via its
-own animation-delay so they take turns. A negative delay is normal here --
-it means "this image's clock already started that many seconds ago", which
-is what lets the very first image show at full opacity immediately instead
-of fading in on page load. Because the loop length and offsets depend on how
-many photos are actually in slider/, the percentages have to be computed
-here rather than hardcoded in template.css.
+The home page is the article list: newest first, grouped under a date
+heading. Every imported post has its own date, but grouping keeps two posts
+published the same day under one heading. /articles/ redirects here
+(articles/index.html), so the old list URL keeps working.
 {%- endcomment -%}
-{%- assign slides = site.static_files | where_exp: "f", "f.path contains '/slider/'" %}
-{%- assign slide_seconds = 5 %}
-{%- assign fade_seconds = 1 %}
-{%- assign slide_count = slides.size %}
-{%- assign total_seconds = slide_count | times: slide_seconds %}
-<div id="banner">
+{%- assign posts = site.posts | sort: "date" | reverse %}
+{%- assign days = posts | group_by_exp: "post", "post.date | date: '%Y-%m-%d'" %}
+<h1>Статті <span class="n">{{ posts.size }}</span></h1>
+<p class="lede">{{ page.description }}</p>
 
-	<div id="slideshow">
-	{%- for file in slides %}
-		<img src="{{ file.path }}" alt="{{ file.name }}" title="{{ file.name }}"{% if slide_count > 1 %} style="animation-delay: {{ forloop.index0 | times: slide_seconds | minus: fade_seconds }}s"{% endif %} />
+{%- for day in days %}
+{%- assign first = day.items | first %}
+<section class="day">
+	<h2 class="dayh"><time datetime="{{ day.name }}">{% include date-uk.html date=first.date %}</time></h2>
+	{%- for post in day.items %}
+	<article class="item">
+		<h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+		{%- capture summary %}{% include post-summary.html post=post %}{% endcapture %}
+		{%- if summary != "" %}
+		<p class="sum">{{ summary }}</p>
+		{%- endif %}
+	</article>
 	{%- endfor %}
-	</div>
-</div>
-{%- if slide_count > 1 %}
-<style>
-#slideshow img {
-	opacity: 0;
-	animation: slideshowFade {{ total_seconds }}s ease infinite;
-}
-@keyframes slideshowFade {
-	0% { opacity: 0; }
-	{{ fade_seconds | times: 100.0 | divided_by: total_seconds | round: 3 }}% { opacity: 1; }
-	{{ slide_seconds | times: 100.0 | divided_by: total_seconds | round: 3 }}% { opacity: 1; }
-	{{ slide_seconds | plus: fade_seconds | times: 100.0 | divided_by: total_seconds | round: 3 }}% { opacity: 0; }
-	100% { opacity: 0; }
-}
-</style>
-{%- endif %}
-
-<div id="main">
-
-	<br/> <div class="clear"></div>
-
-	<h1>Статті</h1>
-
-	{%- comment -%}
-	Was a `ORDER BY RAND() LIMIT 1` query. On a static site the pick happens in
-	the browser, from /articles.json, so it still changes on every visit.
-	{%- endcomment -%}
-	<div id="randomArticle" data-articles="/articles.json"></div>
-
-	<div class="clear"></div>
-
-	<div style="margin: 10px 10px 10px 0px;">
-
-		<div style="max-width:729px; color: red; margin:0px auto; text-align:center">
-			<div class="fb-page"
-				 data-href="{{ site.facebook.page }}"
-				 data-small-header="true"
-				 data-width="500"
-				 data-adapt-container-width="true"
-				 data-hide-cover="false"
-				 data-show-facepile="true"
-				 data-show-posts="false">
-				<div class="fb-xfbml-parse-ignore">
-					<blockquote cite="{{ site.facebook.page }}"><a href="{{ site.facebook.page }}">{{ site.title }}</a></blockquote>
-				</div>
-			</div>
-
-			{%- include facebook-sdk.html %}
-		</div>
-
-	</div>
-</div>
+</section>
+{%- endfor %}

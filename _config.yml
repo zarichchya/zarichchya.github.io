@@ -20,14 +20,16 @@ since: 2009
 google_analytics: "UA-88969692-1"
 google_site_verification: "1wzYo8SbK7WrXjkmt_dyATqFHRroIiSUwKSwkLEBY9Y"
 facebook:
+  # Linked from the footer (site title with a Facebook icon).
   page: "https://www.facebook.com/moyezarichchya"
+  # Used by the comments under every article (_includes/facebook-sdk.html).
   app_id: "356659138126791"
   locale: "uk_UA"
 
 # --- build -------------------------------------------------------------------
-# `_plugins/permalinks.rb` derives /articles/<category_id>/<article_id>/ (and
-# /articles/<category_id>/ for category pages) from front matter, so every
-# legacy URL still resolves without a hand-written `permalink` on each post.
+# `_plugins/permalinks.rb` derives /articles/<article_id>/ from front matter,
+# so every legacy URL still resolves without a hand-written `permalink` on
+# each post.
 permalink: pretty
 timezone: Europe/Kiev
 
